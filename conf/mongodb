@@ -1,0 +1,40 @@
+#!/bin/sh
+ 
+### BEGIN INIT INFO
+# Provides:     mongodb
+# Required-Start:
+# Required-Stop:
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description: mongodb
+# Description: mongo db server
+### END INIT INFO
+ 
+EXE_FILE=/usr/local/mongodb/bin/mongod
+CONFIG_FILE=/usr/local/mongodb/conf/mongodb.conf
+ 
+MONGOPID=`ps -ef| grep mongod| grep -v grep| awk '{print $2}'`
+test -x $EXE_FILE || exit 0
+ 
+case "$1" in
+  start)
+    echo "Starting MongoDB server"
+    $EXE_FILE --config $CONFIG_FILE
+    echo 0
+    ;;
+  stop)
+    echo "Stopping MongoDB server"
+    if [ ! -z "$MONGOPID" ]; then
+        kill -15 $MONGOPID
+    fi
+    echo 0
+    ;;
+  status)
+    ps -aux| grep mongod
+    ;;
+  *)
+    echo "Usage: /etc/init.d/mongodb {start|stop|status}"
+    exit 1
+esac
+ 
+exit 0
