@@ -47,6 +47,7 @@ tar -xf mpfr-3.1.5.tar
 tar -xf mpc-1.0.3.tar.gz
 tar -xf CGAL-4.9.tar
 # cmake --只需配置环境变量
+source /etc/profile
 # gmp
 cd gmp-6.1.1
 ./configure
