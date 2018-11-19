@@ -19,6 +19,7 @@ sed -i 's/<Connector port="8080" protocol="HTTP\/1.1"/<Connector port="8090" pro
 ./bin/startup.sh
 
 # -----tomcat-8091-----
+cd /mnt/app/
 cp -pr apache-tomcat-7.0.67 /opt/java/tomcat_8091
 cd /opt/java/tomcat_8091
 sed -i 's/<Connector port="8080" protocol="HTTP\/1.1"/<Connector port="8091" protocol="HTTP\/1.1"/g' conf/server.xml
