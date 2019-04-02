@@ -4,11 +4,11 @@
 # Simple Redis init.d script conceived to work on Linux systems   
 REDISPORT=6379
 EXEC=/usr/local/redis/bin/redis-server   
-REDIS_CLI=/usr/local/bin/redis/redis-cli   
+REDIS_CLI=/usr/local/redis/bin/redis-cli   
  
 PIDFILE=/var/run/redis.pid
 CONF="/usr/local/redis/etc/redis.conf"  
-AUTH="123456"
+AUTH="Mote12345"
 
 case "$1" in   
         start)   

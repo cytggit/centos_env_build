@@ -4,10 +4,10 @@
 # -----webapps-8090-----
 cd /opt/java/tomcat_8090/webapps
 # geoserver
-cp /mnt/webapps/geoserver.tgz .
-tar -xf geoserver.tgz
+cp /mnt/webapps/geoserver.tar .
+tar -xf geoserver.tar
 # geoserver 配置数据库连接
-sed -i 's/<entry key="host">114.215.83.3<\/entry>/<entry key="host">192.168.1.181<\/entry>/g' geoserver/data/workspaces/mote/mote/datastore.xml
+sed -i 's/<entry key="host">114.215.83.3<\/entry>/<entry key="host">192.168.1.198<\/entry>/g' geoserver/data/workspaces/mote/mote/datastore.xml
 
 # LocateServer
 # cp /mnt/webapps/LocateServer.war .

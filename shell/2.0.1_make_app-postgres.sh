@@ -21,21 +21,24 @@ echo postgres:postgres | chpasswd
 mkdir -p /pgdata
 chown -R postgres /pgdata
 cd /usr/local/postgresql/bin
-su postgres
-./initdb -D "/pgdata" -U postgres
-sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /pgdata/postgresql.conf
-sed -i "s/#port = 5432/port = 5432/g" /pgdata/postgresql.conf
-echo "host    all             all             0.0.0.0/0            md5" >> /pgdata/pg_hba.conf
-exit
+su postgres  << EOF
+./initdb -D "/pgdata" -U postgres;
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /pgdata/postgresql.conf;
+sed -i "s/#port = 5432/port = 5432/g" /pgdata/postgresql.conf;
+echo "host    all             all             0.0.0.0/0            md5" >> /pgdata/pg_hba.conf;
+exit;
+EOF
 # 开机启动
 cp -pir /mnt/app/postgresql-9.6.8/contrib/start-scripts/linux /etc/init.d/postgresql
 chmod +x /etc/init.d/postgresql
 sed -i 's/prefix=\/usr\/local\/pgsql/prefix=\/usr\/local\/postgresql/g' /etc/init.d/postgresql
 sed -i 's/PGDATA="\/usr\/local\/pgsql\/data"/PGDATA="\/pgdata"/g' /etc/init.d/postgresql
 chkconfig --add postgresql
+chkconfig postgresql on
 # 更改密码
 service postgresql start
-su postgres
-psql -f /mnt/shell/changepgpsword.sql
-exit
+su postgres << EOF
+./psql -f /mnt/shell/changepgpsword.sql;
+exit;
+EOF
 service postgresql restart
