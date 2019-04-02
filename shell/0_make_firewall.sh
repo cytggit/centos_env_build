@@ -3,8 +3,10 @@
 # ===============开启端口==============
 firewall-cmd --permanent --add-port=5432/tcp
 firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=5672/tcp
 firewall-cmd --permanent --add-port=15672/tcp
 firewall-cmd --permanent --add-port=6379/tcp
+firewall-cmd --permanent --add-port=27017/tcp
 firewall-cmd --permanent --add-port=28017/tcp
 firewall-cmd --permanent --add-port=8090/tcp
 firewall-cmd --permanent --add-port=8091/tcp

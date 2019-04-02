@@ -11,9 +11,13 @@ make install PREFIX=/usr/local/redis
 mkdir /usr/local/redis/etc
 cp ../redis.conf /usr/local/redis/etc/
 sed -i 's/daemonize no/daemonize yes/g' /usr/local/redis/etc/redis.conf
+sed -i 's/# requirepass foobared/requirepass Mote12345/g' /usr/local/redis/etc/redis.conf
+sed -i 's/bind  127.0.0.1/# bind  127.0.0.1/g' /usr/local/redis/etc/redis.conf
 echo "export PATH=\$PATH:/usr/local/redis/bin" >> /etc/profile
 source /etc/profile
+redis-server /usr/local/redis/etc/redis.conf
 cd /etc/rc.d/init.d/
 cp /mnt/conf/redis .
 chmod +x redis
 chkconfig --add redis
+chkconfig redis on

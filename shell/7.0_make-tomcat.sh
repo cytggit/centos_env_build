@@ -32,4 +32,6 @@ cp /mnt/conf/tomcat_8090 /mnt/conf/tomcat_8091 /etc/init.d/
 cd  /etc/init.d/
 chmod +x tomcat_8090 tomcat_8091
 chkconfig --add tomcat_8090
+chkconfig tomcat_8090 on
 chkconfig --add tomcat_8091
+chkconfig tomcat_8091 on

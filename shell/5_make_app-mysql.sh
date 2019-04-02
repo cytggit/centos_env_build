@@ -13,7 +13,19 @@ chown -R mysql:mysql ./
 cp support-files/mysql.server /etc/init.d/mysqld
 chmod 755 /etc/init.d/mysqld
 chkconfig --add mysqld
-\cp support-files/my-default.cnf /etc/my.cnf
+chkconfig mysqld on
+\cp /mnt/conf/my.cnf /etc/my.cnf
 echo "export PATH=\$PATH:/usr/local/mysql/bin" >> /etc/profile
 source /etc/profile
 service mysqld start
+mysqladmin -u root password 'Mote12345'
+mysql -uroot -pMote12345 << EOF
+use mysql;
+grant all privileges on *.* to 'root'@'%' identified by 'Mote12345';
+flush privileges;
+create database bison;
+create database beacon;
+exit;
+EOF
+mysql -uroot -pMote12345 bison < /mnt/shell/bison.sql
+mysql -uroot -pMote12345 beacon < /mnt/shell/beacon.sql
