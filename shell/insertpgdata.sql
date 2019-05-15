@@ -263,3 +263,20 @@ CREATE TABLE "public"."detain" (
 WITH (OIDS=FALSE);
 ALTER TABLE "public"."detain" ADD PRIMARY KEY ("fid");
 
+
+-- ----------------------------
+-- danger
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."danger";
+CREATE TABLE "public"."danger" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(32) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"floor_id" varchar(32) COLLATE "default",
+"name" text COLLATE "default",
+"geom" "public".geometry(Polygon,4326) NOT NULL)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."danger" ADD PRIMARY KEY ("fid");
+
+
+
