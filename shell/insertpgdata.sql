@@ -296,4 +296,20 @@ WITH (OIDS=FALSE);
 ALTER TABLE "public"."danger" ADD PRIMARY KEY ("fid");
 
 
+-- ----------------------------
+-- inspection_point
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."inspection_point";
+CREATE TABLE "public"."inspection_point" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(32) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"floor_id" varchar(32) COLLATE "default",
+"name" text COLLATE "default",
+"scope" int4,
+"geom" "public".geometry(Point,4326) NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."inspection_point" ADD PRIMARY KEY ("fid");
+
 
