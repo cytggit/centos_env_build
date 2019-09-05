@@ -23,8 +23,8 @@ mysql -uroot -pMote12345 << EOF
 use mysql;
 grant all privileges on *.* to 'root'@'%' identified by 'Mote12345';
 flush privileges;
-create database bison;
-create database beacon;
+CREATE DATABASE IF NOT EXISTS bison DEFAULT CHARSET utf8;
+CREATE DATABASE IF NOT EXISTS beacon DEFAULT CHARSET utf8;
 exit;
 EOF
 mysql -uroot -pMote12345 bison < /mnt/shell/bison.sql

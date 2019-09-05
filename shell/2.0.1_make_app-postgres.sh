@@ -25,7 +25,7 @@ su postgres  << EOF
 ./initdb -D "/pgdata" -U postgres;
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /pgdata/postgresql.conf;
 sed -i "s/#port = 5432/port = 5432/g" /pgdata/postgresql.conf;
-echo "host    all             all             0.0.0.0/0            md5" >> /pgdata/pg_hba.conf;
+echo "host    all             all             0.0.0.0/0            trust" >> /pgdata/pg_hba.conf;
 exit;
 EOF
 # 开机启动

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 47.103.35.78mysql
-Source Server Version : 50633
-Source Host           : 47.103.35.78:3306
+Source Server         : 本地
+Source Server Version : 50725
+Source Host           : localhost:3306
 Source Database       : bison
 
 Target Server Type    : MYSQL
-Target Server Version : 50633
+Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2019-05-11 10:52:33
+Date: 2019-06-11 16:21:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,7 +77,7 @@ CREATE TABLE `acl_alert` (
   KEY `id` (`id`),
   KEY `company_id` (`company_id`),
   KEY `device_id` (`device_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6790 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert
@@ -100,7 +100,7 @@ CREATE TABLE `acl_alert_battery` (
   `company_id` varchar(255) NOT NULL,
   `checked` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=372925 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=373174 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_battery
@@ -119,7 +119,7 @@ CREATE TABLE `acl_alert_danger` (
   `checked` int(11) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=365 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_danger
@@ -149,7 +149,7 @@ CREATE TABLE `acl_alert_health` (
   `company_id` varchar(255) NOT NULL,
   `checked` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13670 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13978 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_health
@@ -168,7 +168,7 @@ CREATE TABLE `acl_alert_retain` (
   `checked` int(11) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_retain
@@ -189,7 +189,7 @@ CREATE TABLE `acl_alert_sos` (
   `company_id` varchar(255) DEFAULT NULL,
   `checked` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_sos
@@ -212,7 +212,7 @@ CREATE TABLE `acl_alert_static` (
   `checked` int(11) DEFAULT NULL,
   `static_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_static
@@ -234,10 +234,48 @@ CREATE TABLE `acl_alert_took` (
   `company_id` varchar(255) NOT NULL,
   `checked` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=218064 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_alert_took
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for acl_app_sign
+-- ----------------------------
+DROP TABLE IF EXISTS `acl_app_sign`;
+CREATE TABLE `acl_app_sign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `begin_time` bigint(64) DEFAULT NULL COMMENT '开始时间',
+  `end_time` bigint(64) DEFAULT NULL COMMENT '结束时间',
+  `sign_number` int(11) DEFAULT NULL COMMENT '已签人数',
+  `no_sign_number` int(11) DEFAULT NULL COMMENT '未签人数',
+  `organ_id` int(11) DEFAULT NULL COMMENT '组织id',
+  `state` varchar(18) DEFAULT NULL COMMENT '状态',
+  `username` varchar(64) DEFAULT NULL COMMENT '用户名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of acl_app_sign
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for acl_app_sign_info
+-- ----------------------------
+DROP TABLE IF EXISTS `acl_app_sign_info`;
+CREATE TABLE `acl_app_sign_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `personinfo_id` varchar(32) DEFAULT NULL COMMENT 'personinfo_id，外键',
+  `sign_time` bigint(64) DEFAULT NULL COMMENT '签到时间',
+  `sign_state` int(11) DEFAULT NULL COMMENT '签到状况(0未签，1已签)',
+  `app_sign_id` int(11) DEFAULT NULL COMMENT 'app_sign外键',
+  `sign_content` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1492 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of acl_app_sign_info
 -- ----------------------------
 
 -- ----------------------------
@@ -255,84 +293,6 @@ CREATE TABLE `acl_area` (
 -- ----------------------------
 -- Records of acl_area
 -- ----------------------------
-
--- ----------------------------
--- Table structure for acl_asset_classify
--- ----------------------------
-DROP TABLE IF EXISTS `acl_asset_classify`;
-CREATE TABLE `acl_asset_classify` (
-  `class_id` varchar(20) NOT NULL,
-  `class_name` varchar(30) NOT NULL,
-  `pid` varchar(20) DEFAULT NULL,
-  KEY `类型名称` (`class_name`),
-  KEY `pid` (`pid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of acl_asset_classify
--- ----------------------------
-INSERT INTO `acl_asset_classify` VALUES ('1', '土地、房屋及构筑物', '0');
-INSERT INTO `acl_asset_classify` VALUES ('1010000', '土地、海域及无居民海岛', '1');
-INSERT INTO `acl_asset_classify` VALUES ('1020000', '房屋', '1');
-INSERT INTO `acl_asset_classify` VALUES ('1030000', '构筑物', '1');
-INSERT INTO `acl_asset_classify` VALUES ('2', '通用设备', '0');
-INSERT INTO `acl_asset_classify` VALUES ('2010000', '计算机设备及软件', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2020000', '办公设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2030000', '车辆', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2040000', '图书档案设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2100000', '机械设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2200000', '电气设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2300000', '雷达、无线电和卫星导航设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2310000', '通信设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2320000', '广播、电视、电影设备', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2400000', '仪器仪表', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2410000', '电子和通信测量仪器', '2');
-INSERT INTO `acl_asset_classify` VALUES ('2420000', '计量标准器具及量具、衡器', '2');
-INSERT INTO `acl_asset_classify` VALUES ('3', '专用设备', '0');
-INSERT INTO `acl_asset_classify` VALUES ('3010000', '探矿、采矿、选矿和造块设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3020000', '石油天然气开采专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3030000', '石油和化学工业专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3040000', '炼焦和金属冶炼轧制设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3050000', '电气工业专业设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3060000', '非金属矿物制品工业专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3070000', '核工业专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3080000', '航空航天工业专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3100000', '工程机械', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3110000', '农业和林业机械', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3130000', '木材采集和加工设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3140000', '食品加工专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3150000', '饮料加工设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3160000', '烟草加工设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3170000', '粮油作物和饲料加工设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3180000', '纺织设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3190000', '缝纫、服饰、制革和毛皮加工设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3200000', '造纸和印刷机械', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3210000', '化学药品和中药专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3220000', '医疗设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3230000', '电工、电子专用生产设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3240000', '安全生产设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3250000', '邮政专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3260000', '环境污染防治设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3270000', '公安专用设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3280000', '水工机械', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3390000', '殡葬设备及用品', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3500000', '铁路运输设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3510000', '水上交通运输设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3520000', '航空器及其配套设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3600000', '专用仪器仪表', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3700000', '文艺设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3710000', '体育设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('3720000', '娱乐设备', '3');
-INSERT INTO `acl_asset_classify` VALUES ('4', '文物和陈列品', '0');
-INSERT INTO `acl_asset_classify` VALUES ('4010000', '文物', '4');
-INSERT INTO `acl_asset_classify` VALUES ('4020000', '陈列品', '4');
-INSERT INTO `acl_asset_classify` VALUES ('5', '图书、档案', '0');
-INSERT INTO `acl_asset_classify` VALUES ('5010000', '图书、档案', '5');
-INSERT INTO `acl_asset_classify` VALUES ('6', '家具、用具、装具及动植物', '0');
-INSERT INTO `acl_asset_classify` VALUES ('6010000', '家具用具', '6');
-INSERT INTO `acl_asset_classify` VALUES ('6020000', '被服装具', '6');
-INSERT INTO `acl_asset_classify` VALUES ('6030000', '特种用途动物', '6');
-INSERT INTO `acl_asset_classify` VALUES ('6040000', '特种用途植物', '6');
 
 -- ----------------------------
 -- Table structure for acl_assets
@@ -368,10 +328,26 @@ CREATE TABLE `acl_assets` (
   KEY `id` (`id`),
   KEY `资产id` (`asset_id`),
   KEY `cid` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_assets
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for acl_asset_classify
+-- ----------------------------
+DROP TABLE IF EXISTS `acl_asset_classify`;
+CREATE TABLE `acl_asset_classify` (
+  `class_id` varchar(20) NOT NULL,
+  `class_name` varchar(30) NOT NULL,
+  `pid` varchar(20) DEFAULT NULL,
+  KEY `类型名称` (`class_name`),
+  KEY `pid` (`pid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of acl_asset_classify
 -- ----------------------------
 
 -- ----------------------------
@@ -405,7 +381,7 @@ CREATE TABLE `acl_blood` (
   `timestamp` bigint(20) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26908 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30473 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_blood
@@ -485,12 +461,11 @@ CREATE TABLE `acl_danger` (
   `name` varchar(255) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_danger
 -- ----------------------------
-INSERT INTO `acl_danger` VALUES ('11', '1', '危险区域', '1');
 
 -- ----------------------------
 -- Table structure for acl_deploy
@@ -502,30 +477,11 @@ CREATE TABLE `acl_deploy` (
   `name` varchar(255) DEFAULT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_deploy
 -- ----------------------------
-INSERT INTO `acl_deploy` VALUES ('1', '0', '嘉定监狱', '1');
-INSERT INTO `acl_deploy` VALUES ('48', '1', '公共办公区1', '1');
-INSERT INTO `acl_deploy` VALUES ('49', '1', '公共办公区2', '1');
-INSERT INTO `acl_deploy` VALUES ('50', '1', '会议室', '1');
-INSERT INTO `acl_deploy` VALUES ('51', '1', '总经理室', '1');
-INSERT INTO `acl_deploy` VALUES ('52', '1', '办公区域1', '1');
-INSERT INTO `acl_deploy` VALUES ('53', '1', '办公区域2', '1');
-INSERT INTO `acl_deploy` VALUES ('55', '1', '西宁测试办公室', '1');
-INSERT INTO `acl_deploy` VALUES ('56', '1', '全家店二店', '1');
-INSERT INTO `acl_deploy` VALUES ('58', '1', '恩谊办公室', '1');
-INSERT INTO `acl_deploy` VALUES ('59', '1', '德邦办公室', '1');
-INSERT INTO `acl_deploy` VALUES ('60', '1', '亲情研发室', '1');
-INSERT INTO `acl_deploy` VALUES ('61', '1', '烽火办公室', '1');
-INSERT INTO `acl_deploy` VALUES ('62', '1', '烽火会议室', '1');
-INSERT INTO `acl_deploy` VALUES ('63', '1', '烽火办公大厅', '1');
-INSERT INTO `acl_deploy` VALUES ('64', '1', '华图办公室', '1');
-INSERT INTO `acl_deploy` VALUES ('65', '1', '卓普203', '1');
-INSERT INTO `acl_deploy` VALUES ('66', '1', '卓普201', '1');
-INSERT INTO `acl_deploy` VALUES ('67', '1', '卓普205', '1');
 
 -- ----------------------------
 -- Table structure for acl_detain
@@ -538,13 +494,11 @@ CREATE TABLE `acl_detain` (
   `company_id` int(11) NOT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_detain
 -- ----------------------------
-INSERT INTO `acl_detain` VALUES ('1', '0', '嘉定监狱', '1', '20');
-INSERT INTO `acl_detain` VALUES ('4', '1', '办公区域滞留', '1', '120');
 
 -- ----------------------------
 -- Table structure for acl_detain_person
@@ -558,8 +512,6 @@ CREATE TABLE `acl_detain_person` (
 -- ----------------------------
 -- Records of acl_detain_person
 -- ----------------------------
-INSERT INTO `acl_detain_person` VALUES ('4', 'E29A9DB13C4B');
-INSERT INTO `acl_detain_person` VALUES ('4', 'D5E72BEC8FE6');
 
 -- ----------------------------
 -- Table structure for acl_heart
@@ -574,7 +526,7 @@ CREATE TABLE `acl_heart` (
   PRIMARY KEY (`id`),
   KEY `deviceId` (`device_id`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=InnoDB AUTO_INCREMENT=50323 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=128533 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_heart
@@ -609,11 +561,15 @@ CREATE TABLE `acl_log` (
   `type` varchar(100) NOT NULL DEFAULT '' COMMENT '用户所做的操作',
   `company_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21106 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=21209 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of acl_log
 -- ----------------------------
+INSERT INTO `acl_log` VALUES ('21205', 'super', '2019-06-11 16:06:40', '添加\'测试\'部门', '部门管理', '1');
+INSERT INTO `acl_log` VALUES ('21206', 'super', '2019-06-11 16:10:46', '更新\'超级管理员\'角色', '角色管理', '1');
+INSERT INTO `acl_log` VALUES ('21207', 'super', '2019-06-11 16:11:05', '删除\'测试\'部门', '部门管理', '1');
+INSERT INTO `acl_log` VALUES ('21208', 'super', '2019-06-11 16:11:28', '添加\'部门一\'部门', '部门管理', '1');
 
 -- ----------------------------
 -- Table structure for acl_menu
@@ -662,7 +618,7 @@ INSERT INTO `acl_menu` VALUES ('259', '单位管理', 'fa fa-bank ', '', 'fansai
 INSERT INTO `acl_menu` VALUES ('260', '公司信息', 'fa fa-institution', 'company', 'fansai:comInfo:open', '259', '2', '1', '23', '', '1');
 INSERT INTO `acl_menu` VALUES ('261', '部门岗位', 'fa fa-cubes', 'system/organ', 'fansai:organ:open', '259', '2', '1', '24', '', '1');
 INSERT INTO `acl_menu` VALUES ('262', '数据管理', 'fa fa-database', '', 'fansai:dataManage:open', '1', '1', '0', '25', '', '1');
-INSERT INTO `acl_menu` VALUES ('263', '地图显示', 'fa fa-map-marker', 'design/resource', 'fansai:mapInfo:open', '271', '2', '1', '32', '', '1');
+INSERT INTO `acl_menu` VALUES ('263', '地图显示', 'fa fa-map-marker', 'design/resource', 'fansai:fenceInfo:open', '271', '2', '1', '32', '', '1');
 INSERT INTO `acl_menu` VALUES ('264', '人员信息', 'icon-user', 'personInfo', 'fansai:manInfo:open', '262', '2', '1', '26', '', '1');
 INSERT INTO `acl_menu` VALUES ('265', '资产信息', 'fa fa-jpy', 'asset', 'fansai:assetInfo:open', '262', '2', '1', '27', '', '1');
 INSERT INTO `acl_menu` VALUES ('266', '手环信息', 'fa fa-life-ring', 'shgl', 'fansai:ringInfo:open', '262', '2', '1', '28', '', '0');
@@ -677,7 +633,7 @@ INSERT INTO `acl_menu` VALUES ('300', '设备管理', 'fa fa-suitcase', '', 'sys
 INSERT INTO `acl_menu` VALUES ('301', '设备升级', 'fa fa-cloud-upload', 'deviceManage', 'system:device:open', '300', '2', '1', '40', '管理设备信息并对设备进行升级', '1');
 INSERT INTO `acl_menu` VALUES ('302', '固件管理', 'fa fa-calculator', 'firmwareManage', 'system:firmware:open', '300', '2', '1', '41', '管理设备固件版本', '0');
 INSERT INTO `acl_menu` VALUES ('303', '应用管理', 'fa fa-mobile', 'applicationManage', 'system:application:open', '300', '2', '1', '42', '管理设备应用版本', '0');
-INSERT INTO `acl_menu` VALUES ('304', '电子围栏', 'fa fa-map-pin', 'design/fence', 'fansai:mapInfo:open', '271', '2', '1', '36', '', '1');
+INSERT INTO `acl_menu` VALUES ('304', '电子围栏', 'fa fa-map-pin', 'design/fence', 'fansai:fenceInfo:open', '271', '2', '1', '36', '', '1');
 INSERT INTO `acl_menu` VALUES ('305', '人数统计', 'icon-user', 'signIn/count', 'fansai:signCount:open', '256', '2', '1', '20', '', '1');
 INSERT INTO `acl_menu` VALUES ('306', '比较统计', 'icon-pencil', 'signIn/count/compare', 'fansai:signCount:compare:open', '256', '2', '1', '21', '', '1');
 INSERT INTO `acl_menu` VALUES ('307', 'NVR信息', 'fa fa-shield', 'nvr', 'fansai:NVR:open', '262', '2', '1', '29', '', '1');
@@ -774,7 +730,7 @@ INSERT INTO `acl_permission` VALUES ('fansai:manInfo:open', '人员信息查看'
 INSERT INTO `acl_permission` VALUES ('fansai:manInfoAdd:open', '人员信息添加', '262', '3');
 INSERT INTO `acl_permission` VALUES ('fansai:manInfoDelete:open', '人员信息删除', '262', '3');
 INSERT INTO `acl_permission` VALUES ('fansai:manInfoUpdate:open', '人员信息修改', '262', '3');
-INSERT INTO `acl_permission` VALUES ('fansai:mapInfo:open', '地图显示', '271', '3');
+INSERT INTO `acl_permission` VALUES ('fansai:fenceInfo:open', '地图显示', '271', '3');
 INSERT INTO `acl_permission` VALUES ('fansai:mattess:open', '智能床垫', '316', '3');
 INSERT INTO `acl_permission` VALUES ('fansai:NVR:open', 'NVR信息', '262', '3');
 INSERT INTO `acl_permission` VALUES ('fansai:organ:open', '部门查看', '259', '3');
@@ -846,7 +802,7 @@ CREATE TABLE `acl_personinfo` (
   `static_stop_time` varchar(30) DEFAULT NULL COMMENT '静止检测结束时间',
   `static_duration` int(11) DEFAULT NULL COMMENT '静止时长（分钟）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_personinfo
@@ -878,22 +834,12 @@ CREATE TABLE `acl_role` (
   `description` varchar(100) DEFAULT NULL COMMENT '角色介绍',
   `company_id` varchar(20) DEFAULT NULL COMMENT '公司ID',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of acl_role
 -- ----------------------------
 INSERT INTO `acl_role` VALUES ('50', '超级管理员', '超级管理员', '1');
-INSERT INTO `acl_role` VALUES ('51', '小当家', '小当家', '1');
-INSERT INTO `acl_role` VALUES ('52', '办公室主任', '华东师范大学办公室主任', '1');
-INSERT INTO `acl_role` VALUES ('55', '合富测试', '', '1');
-INSERT INTO `acl_role` VALUES ('56', '全家测试', '全家库存管理员', '1');
-INSERT INTO `acl_role` VALUES ('57', '恩谊测试', '恩谊', '1');
-INSERT INTO `acl_role` VALUES ('58', '德邦测试', '', '1');
-INSERT INTO `acl_role` VALUES ('59', '郫都看守所', '管理员', '1');
-INSERT INTO `acl_role` VALUES ('60', '亲情测试', '亲情测试员', '1');
-INSERT INTO `acl_role` VALUES ('61', '华图管理员', '我是管理员', '1');
-INSERT INTO `acl_role` VALUES ('62', '卓普', '卓普管理员', '1');
 
 -- ----------------------------
 -- Table structure for acl_role_organ
@@ -909,81 +855,8 @@ CREATE TABLE `acl_role_organ` (
 -- ----------------------------
 -- Records of acl_role_organ
 -- ----------------------------
-INSERT INTO `acl_role_organ` VALUES ('51', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '58', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '145', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '58', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '145', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('59', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('59', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('59', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('60', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('60', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('59', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('60', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('61', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('61', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('51', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('52', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('55', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('56', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('57', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('58', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('59', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('60', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('61', '157', '1');
-INSERT INTO `acl_role_organ` VALUES ('62', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('62', '157', '1');
 INSERT INTO `acl_role_organ` VALUES ('50', '1', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '58', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '145', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '151', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '152', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '153', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '154', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '155', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '156', '1');
-INSERT INTO `acl_role_organ` VALUES ('50', '157', '1');
+INSERT INTO `acl_role_organ` VALUES ('50', '161', '1');
 
 -- ----------------------------
 -- Table structure for acl_role_permission
@@ -1009,326 +882,6 @@ INSERT INTO `acl_role_permission` VALUES ('1', '111', 'security:userAdd:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '111', 'security:userDelete:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '111', 'security:userUpdate:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '111', 'system:security:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:asset:show');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:lose:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:mattess:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:rest:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'fansai:work:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '亲情测试', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:asset:show');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:lose:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '全家测试', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:board:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:cameraMessage');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:comInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:comInfoEdit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:configure:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:deploy:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:detain:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:mattess:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:NVR:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:organ:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:organAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:organDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:organUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:rest:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:unit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:video:control');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:video:linkage');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'fansai:video:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:role:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:roleAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:roleDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:roleUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:user:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:userAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:userDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'security:userUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:log:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:param:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:security:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:sysParam:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '办公室主任', 'system:sysParamEdit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:asset:show');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:board:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:cameraMessage');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:configure:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:deploy:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:detain:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:NVR:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:static:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'system:log:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '华图管理员', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:lose:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:mattess:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:rest:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:static:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'fansai:work:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'system:log:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '卓普', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:cameraMessage');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:comInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:comInfoEdit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:mattess:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:NVR:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:organ:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:organAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:organDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:organUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'fansai:unit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:log:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:param:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:sysParam:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '合富测试', 'system:sysParamEdit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:board:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:cameraMessage');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:comInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:comInfoEdit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:configure:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:deploy:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:detain:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:mattess:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:NVR:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:organ:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:organAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:organDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:organUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:rest:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:unit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:video:control');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:video:linkage');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'fansai:video:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:role:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:roleAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:roleDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:roleUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:user:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:userAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:userDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'security:userUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:log:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:param:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:security:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:sysParam:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '小当家', 'system:sysParamEdit:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:asset:show');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:assetInfo:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:assetInfoAdd:open');
@@ -1345,7 +898,7 @@ INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:manInfoAd
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:manInfoDelete:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:manInfoUpdate:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:mapInfo:open');
+INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:fenceInfo:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:NVR:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:power:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'fansai:rest:open');
@@ -1370,70 +923,6 @@ INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'manage:system:op
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'system:orbit:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'system:sos:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '德绑测试', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:asset:show');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:cameraMessage');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:NVR:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:rest:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:retain:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:signCount:compare:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:signCount:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:signIn:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:signQuery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:signSet:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:video:control');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:video:linkage');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:video:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'fansai:work:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '德邦测试', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:assetInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:assetInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:assetInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:assetInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:lose:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '恩谊测试', 'system:system:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:asset:show');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:assetInfo:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:assetInfoAdd:open');
@@ -1461,7 +950,7 @@ INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:manInf
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:manInfoDelete:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:manInfoUpdate:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:mapInfo:open');
+INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:fenceInfo:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:mattess:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:NVR:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'fansai:organ:open');
@@ -1508,32 +997,6 @@ INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'system:sos:op
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'system:sysParam:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'system:sysParamEdit:open');
 INSERT INTO `acl_role_permission` VALUES ('1', '超级管理员', 'system:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:battery:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:blood:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:dataManage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:fenceInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:health:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:heart:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:manInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:manInfoAdd:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:manInfoDelete:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:manInfoUpdate:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:mapcontrol:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:mapInfo:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:power:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:scatter:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:server:alarm');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:server:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:server:site');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:sMessage:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:sos:alert');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:stats:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:step:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'fansai:took:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'manage:system:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'system:orbit:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'system:sos:open');
-INSERT INTO `acl_role_permission` VALUES ('1', '郫都看守所', 'system:system:open');
 
 -- ----------------------------
 -- Table structure for acl_sign
@@ -1551,15 +1014,11 @@ CREATE TABLE `acl_sign` (
   `sign_state` varchar(10) DEFAULT NULL,
   `company_id` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=410 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=424 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_sign
 -- ----------------------------
-INSERT INTO `acl_sign` VALUES ('406', 'C8C1E987F6A0', '德邦圆形', '2000001', '152', '德邦IT部', '120', '2019-03-25 14:51:49', '0', '1');
-INSERT INTO `acl_sign` VALUES ('407', 'C8C1E987F6A0', '德邦圆形', '2000001', '152', '德邦IT部', '120', '2019-03-26 08:40:40', '0', '1');
-INSERT INTO `acl_sign` VALUES ('408', 'CFFD3AAEBD05', '德绑BD05', '1000001', '152', '德邦IT部', '119', '2019-03-26 14:04:41', '1', '1');
-INSERT INTO `acl_sign` VALUES ('409', 'C9D27C743355', '德邦3355', '2000001', '152', '德邦IT部', '119', '2019-03-26 14:12:31', '1', '1');
 
 -- ----------------------------
 -- Table structure for acl_sign_set
@@ -1575,16 +1034,11 @@ CREATE TABLE `acl_sign_set` (
   `sign_state` varchar(10) DEFAULT NULL,
   `company_id` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_sign_set
 -- ----------------------------
-INSERT INTO `acl_sign_set` VALUES ('119', '德邦', '08:00:00', '08:30:00', '2,3,', '20190322163351', '0', '1');
-INSERT INTO `acl_sign_set` VALUES ('121', 'mote测试', '08:00:00', '09:00:00', '2,3,4,5,6,', '20190403153836', '0', '1');
-INSERT INTO `acl_sign_set` VALUES ('122', '亲情', '15:00:00', '17:00:00', '2,3,4,5,6,7,1,', '20190416155337', '0', '1');
-INSERT INTO `acl_sign_set` VALUES ('123', '卓普时代', '17:00:00', '19:00:00', '2,3,4,5,6,', '2019042417390', '0', '1');
-INSERT INTO `acl_sign_set` VALUES ('124', 'ceshi', '09:00:00', '22:00:00', '2,3,4,', '2019050914399', '1', '1');
 
 -- ----------------------------
 -- Table structure for acl_sign_set_person
@@ -1599,24 +1053,6 @@ CREATE TABLE `acl_sign_set_person` (
 -- ----------------------------
 -- Records of acl_sign_set_person
 -- ----------------------------
-INSERT INTO `acl_sign_set_person` VALUES ('119', 'DCB9F935D1BC', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('119', 'D5EB1CF89F11', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('119', 'DECA0100D022172C', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('119', 'C9D27C743355', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('119', 'CFFD3AAEBD05', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'DCB9F935D1BC', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'D5EB1CF89F11', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'DECA0100D022172C', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'E54D6A66E1DF', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'F97EE1E86EA3', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'E4E721485F2C', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'F1504FAA7CC4', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'E722EE951C92', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'CE3E7CD62350', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'D4DBAC503A4E', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'D954C9E1E1FB', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'E29A9DB13C4B', '1');
-INSERT INTO `acl_sign_set_person` VALUES ('124', 'D5E72BEC8FE6', '1');
 
 -- ----------------------------
 -- Table structure for acl_site
@@ -1671,8 +1107,6 @@ CREATE TABLE `acl_sleep_avg` (
 -- ----------------------------
 -- Records of acl_sleep_avg
 -- ----------------------------
-INSERT INTO `acl_sleep_avg` VALUES ('1', '0100006136', '0', '2019-01-16 16:39:42', '2019-01-16 16:41:06', '0', '14', '3');
-INSERT INTO `acl_sleep_avg` VALUES ('2', '0100006136', '0', '2019-01-16 16:42:31', '2019-01-16 16:42:59', '0', '14', '3');
 
 -- ----------------------------
 -- Table structure for acl_sleep_move
@@ -1687,12 +1121,6 @@ CREATE TABLE `acl_sleep_move` (
 -- ----------------------------
 -- Records of acl_sleep_move
 -- ----------------------------
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:39:16', '3', '1');
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:39:51', '3', '1');
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:40:31', '3', '1');
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:39:16', '3', '2');
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:39:51', '3', '2');
-INSERT INTO `acl_sleep_move` VALUES ('2019-01-16 16:40:31', '3', '2');
 
 -- ----------------------------
 -- Table structure for acl_sleep_status
@@ -1707,25 +1135,6 @@ CREATE TABLE `acl_sleep_status` (
 -- ----------------------------
 -- Records of acl_sleep_status
 -- ----------------------------
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:44:03', '1', '26');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:45:00', '2', '26');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:46:00', '1', '26');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:47:00', '3', '26');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:48:00', '1', '26');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:44:03', '2', '28');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:45:00', '1', '28');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:46:00', '1', '28');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:47:00', '1', '28');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:48:00', '1', '28');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:44:03', '1', '29');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:45:00', '1', '29');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:46:00', '1', '29');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:47:00', '1', '29');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-12 15:48:00', '1', '29');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-14 17:19:04', '1', '32');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-14 17:20:01', '1', '32');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-14 17:19:04', '1', '35');
-INSERT INTO `acl_sleep_status` VALUES ('2018-06-14 17:20:01', '1', '35');
 
 -- ----------------------------
 -- Table structure for acl_step
@@ -1740,7 +1149,7 @@ CREATE TABLE `acl_step` (
   `timestamp` bigint(20) NOT NULL,
   `company_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2213 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2495 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_step
@@ -1776,21 +1185,40 @@ CREATE TABLE `acl_user` (
   `organ_id` int(11) DEFAULT NULL COMMENT '组织机构id',
   `role_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of acl_user
 -- ----------------------------
-INSERT INTO `acl_user` VALUES ('91', 'cs03', 'cs03', '202CB962AC59075B964B07152D234B70', '1', '58', '小当家');
 INSERT INTO `acl_user` VALUES ('94', 'super', 'super', '202CB962AC59075B964B07152D234B70', '1', '1', '超级管理员');
-INSERT INTO `acl_user` VALUES ('95', 'quanjia', '小全', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '1', '全家测试');
-INSERT INTO `acl_user` VALUES ('96', 'enyi', 'enyi', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '145', '恩谊测试');
-INSERT INTO `acl_user` VALUES ('97', 'debang', '德小邦', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '1', '德绑测试');
-INSERT INTO `acl_user` VALUES ('98', 'pdkss', '管理员', 'E3D254D18816FB76F988CD19590CBE1A', '1', '154', '郫都看守所');
-INSERT INTO `acl_user` VALUES ('99', 'qinqing', '亲情科技', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '155', '亲情测试');
-INSERT INTO `acl_user` VALUES ('100', 'huatu', '测试员', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '156', '华图管理员');
-INSERT INTO `acl_user` VALUES ('101', 'zhuopu', '小卓', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '157', '卓普');
-INSERT INTO `acl_user` VALUES ('102', '1111', 'supor', '202CB962AC59075B964B07152D234B70', '1', '153', '小当家');
+
+-- ----------------------------
+-- Table structure for acl_userinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `acl_userinfo`;
+CREATE TABLE `acl_userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(12) DEFAULT NULL,
+  `user_name` varchar(26) DEFAULT NULL,
+  `user_role` varchar(26) DEFAULT NULL,
+  `danger_area` varchar(64) DEFAULT NULL,
+  `alert_area` varchar(64) DEFAULT NULL,
+  `user_tag` varchar(64) DEFAULT NULL,
+  `relation_id` varchar(24) DEFAULT NULL,
+  `user_area` varchar(24) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of acl_userinfo
+-- ----------------------------
+INSERT INTO `acl_userinfo` VALUES ('1', 'a123', 'a123', '水手', null, null, '敏而好学', null, null);
+INSERT INTO `acl_userinfo` VALUES ('2', 'ass', 'da', '水手', null, null, '傻缺', null, null);
+INSERT INTO `acl_userinfo` VALUES ('3', 'afdasf', 'dasda', '水手', null, null, '傻缺', null, null);
+INSERT INTO `acl_userinfo` VALUES ('4', '111', '', '水手', null, null, '二货', null, null);
+INSERT INTO `acl_userinfo` VALUES ('5', 'eqe', 'rewq', '水手', null, null, '傻缺', null, null);
+INSERT INTO `acl_userinfo` VALUES ('6', 'cs001', 'csrw01', '水手', null, null, null, null, null);
+INSERT INTO `acl_userinfo` VALUES ('7', '', 'ssssss', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for acl_user_area
@@ -1847,45 +1275,7 @@ CREATE TABLE `acl_user_role` (
 -- ----------------------------
 -- Records of acl_user_role
 -- ----------------------------
-INSERT INTO `acl_user_role` VALUES ('1111', '小当家', '1');
-INSERT INTO `acl_user_role` VALUES ('cs01', '小当家', '1');
-INSERT INTO `acl_user_role` VALUES ('cs03', '小当家', '1');
-INSERT INTO `acl_user_role` VALUES ('debang', '德邦测试', '1');
-INSERT INTO `acl_user_role` VALUES ('enyi', '恩谊测试', '1');
-INSERT INTO `acl_user_role` VALUES ('huatu', '华图管理员', '1');
-INSERT INTO `acl_user_role` VALUES ('pdkss', '郫都看守所', '1');
-INSERT INTO `acl_user_role` VALUES ('qinqing', '亲情测试', '1');
-INSERT INTO `acl_user_role` VALUES ('quanjia', '全家测试', '1');
 INSERT INTO `acl_user_role` VALUES ('super', '超级管理员', '1');
-INSERT INTO `acl_user_role` VALUES ('zhuopu', '卓普', '1');
-
--- ----------------------------
--- Table structure for acl_userinfo
--- ----------------------------
-DROP TABLE IF EXISTS `acl_userinfo`;
-CREATE TABLE `acl_userinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(12) DEFAULT NULL,
-  `user_name` varchar(26) DEFAULT NULL,
-  `user_role` varchar(26) DEFAULT NULL,
-  `danger_area` varchar(64) DEFAULT NULL,
-  `alert_area` varchar(64) DEFAULT NULL,
-  `user_tag` varchar(64) DEFAULT NULL,
-  `relation_id` varchar(24) DEFAULT NULL,
-  `user_area` varchar(24) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of acl_userinfo
--- ----------------------------
-INSERT INTO `acl_userinfo` VALUES ('1', 'a123', 'a123', '水手', null, null, '敏而好学', null, null);
-INSERT INTO `acl_userinfo` VALUES ('2', 'ass', 'da', '水手', null, null, '傻缺', null, null);
-INSERT INTO `acl_userinfo` VALUES ('3', 'afdasf', 'dasda', '水手', null, null, '傻缺', null, null);
-INSERT INTO `acl_userinfo` VALUES ('4', '111', '', '水手', null, null, '二货', null, null);
-INSERT INTO `acl_userinfo` VALUES ('5', 'eqe', 'rewq', '水手', null, null, '傻缺', null, null);
-INSERT INTO `acl_userinfo` VALUES ('6', 'cs001', 'csrw01', '水手', null, null, null, null, null);
-INSERT INTO `acl_userinfo` VALUES ('7', '', 'ssssss', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for acl_work
@@ -1900,7 +1290,7 @@ CREATE TABLE `acl_work` (
   `timestamp` bigint(20) DEFAULT NULL,
   `company_id` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124782 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=143944 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of acl_work
@@ -1958,7 +1348,7 @@ CREATE TABLE `companyinfo` (
 -- ----------------------------
 -- Records of companyinfo
 -- ----------------------------
-INSERT INTO `companyinfo` VALUES ('1', '监所', 'dd', 'dd', 'dd', 'http://47.103.35.78:8091/upload/logo_20190509172336.png');
+INSERT INTO `companyinfo` VALUES ('1', '银川一幼', '银川一幼', '银川一幼', '银川一幼', 'http://47.103.35.78:8091/upload/小三班_20190603181827.png');
 
 -- ----------------------------
 -- Table structure for custom_param
@@ -2121,6 +1511,608 @@ CREATE TABLE `location` (
 -- ----------------------------
 -- Records of location
 -- ----------------------------
+INSERT INTO `location` VALUES ('3', '0000000006', '26', '303.512024428139', '305.46965397356', '0');
+INSERT INTO `location` VALUES ('4', '0000000006', '26', '309.989937374921', '315.55840563652', '0');
+INSERT INTO `location` VALUES ('5', '0000000006', '26', '317.219621707586', '326.81797186303', '0');
+INSERT INTO `location` VALUES ('6', '0000000006', '26', '322.775533892788', '335.470792417767', '0');
+INSERT INTO `location` VALUES ('7', '0000000006', '26', '329.845751534123', '346.482003987374', '0');
+INSERT INTO `location` VALUES ('8', '0000000006', '26', '333.156679871458', '351.638469355718', '0');
+INSERT INTO `location` VALUES ('9', '0000000006', '26', '343.203866013925', '367.286034665042', '0');
+INSERT INTO `location` VALUES ('10', '0000000006', '26', '352.12869319149', '381.185629452592', '0');
+INSERT INTO `location` VALUES ('11', '0000000006', '26', '363.908373333409', '385.36696420617', '0');
+INSERT INTO `location` VALUES ('12', '0000000006', '26', '366.120868724435', '388.812721618917', '0');
+INSERT INTO `location` VALUES ('13', '0000000006', '26', '370.736660704435', '396.00139170397', '0');
+INSERT INTO `location` VALUES ('14', '0000000006', '26', '379.039134842835', '408.93172906086', '0');
+INSERT INTO `location` VALUES ('15', '0000000006', '26', '384.820462401505', '417.935613259495', '0');
+INSERT INTO `location` VALUES ('16', '0000000006', '26', '390.729754532526', '427.138790471589', '0');
+INSERT INTO `location` VALUES ('17', '0000000006', '26', '401.406159437906', '443.766305942771', '0');
+INSERT INTO `location` VALUES ('18', '0000000006', '26', '410.319102725967', '457.647392669009', '0');
+INSERT INTO `location` VALUES ('19', '0000000006', '26', '416.018382252495', '466.523494628591', '0');
+INSERT INTO `location` VALUES ('20', '0000000006', '26', '418.223756837654', '469.958162043274', '0');
+INSERT INTO `location` VALUES ('21', '0000000006', '26', '424.858905533323', '480.291793876143', '0');
+INSERT INTO `location` VALUES ('22', '0000000006', '26', '431.13614339883', '490.06801261738', '0');
+INSERT INTO `location` VALUES ('23', '0000000006', '26', '436.41854060749', '498.294858834842', '0');
+INSERT INTO `location` VALUES ('24', '0000000006', '26', '445.793334963954', '512.895235982652', '0');
+INSERT INTO `location` VALUES ('25', '0000000006', '26', '460.197685358476', '535.328682555715', '0');
+INSERT INTO `location` VALUES ('26', '0000000006', '26', '467.035406261334', '545.97780190886', '0');
+INSERT INTO `location` VALUES ('27', '0000000006', '26', '473.779253474368', '556.480721652332', '0');
+INSERT INTO `location` VALUES ('28', '0000000006', '26', '477.18367269122', '561.782790438621', '0');
+INSERT INTO `location` VALUES ('29', '0000000006', '26', '483.945286460102', '572.313379953412', '0');
+INSERT INTO `location` VALUES ('30', '0000000006', '26', '486.835348809266', '576.814385380733', '0');
+INSERT INTO `location` VALUES ('31', '0000000006', '26', '493.458545678849', '587.129403347332', '0');
+INSERT INTO `location` VALUES ('32', '0000000006', '26', '503.350373255061', '602.53501202548', '0');
+INSERT INTO `location` VALUES ('33', '0000000006', '26', '512.134984383208', '596.894478086242', '0');
+INSERT INTO `location` VALUES ('34', '0000000006', '26', '524.775560219508', '588.778057680596', '0');
+INSERT INTO `location` VALUES ('35', '0000000006', '26', '534.799336656858', '582.341864846397', '0');
+INSERT INTO `location` VALUES ('36', '0000000006', '26', '555.886527955755', '568.801935022581', '0');
+INSERT INTO `location` VALUES ('37', '0000000006', '26', '560.654099235315', '565.740712708034', '0');
+INSERT INTO `location` VALUES ('38', '0000000006', '26', '568.960565209006', '560.407192241818', '0');
+INSERT INTO `location` VALUES ('39', '0000000006', '26', '580.799236042611', '552.805669117083', '0');
+INSERT INTO `location` VALUES ('40', '0000000006', '26', '586.746273502125', '548.987120277644', '0');
+INSERT INTO `location` VALUES ('41', '0000000006', '26', '595.214078119554', '543.550005459618', '0');
+INSERT INTO `location` VALUES ('42', '0000000006', '26', '604.821175658244', '558.512173377888', '0');
+INSERT INTO `location` VALUES ('43', '0000000006', '26', '608.705496955141', '564.561645370718', '0');
+INSERT INTO `location` VALUES ('44', '0000000006', '26', '612.055638674243', '569.779181962735', '0');
+INSERT INTO `location` VALUES ('45', '0000000006', '26', '620.884279040004', '583.528974666572', '0');
+INSERT INTO `location` VALUES ('46', '0000000006', '26', '626.538478731891', '592.334868943457', '0');
+INSERT INTO `location` VALUES ('47', '0000000006', '26', '628.52633192026', '595.430766854503', '0');
+INSERT INTO `location` VALUES ('48', '0000000006', '26', '632.556168211843', '601.706865024109', '0');
+INSERT INTO `location` VALUES ('49', '0000000006', '26', '635.963866515775', '607.014040685947', '0');
+INSERT INTO `location` VALUES ('50', '0000000006', '26', '645.048494856611', '621.162511039583', '0');
+INSERT INTO `location` VALUES ('51', '0000000006', '26', '653.346760630955', '634.086294257786', '0');
+INSERT INTO `location` VALUES ('52', '0000000006', '26', '658.481502963051', '642.083181629905', '0');
+INSERT INTO `location` VALUES ('53', '0000000006', '26', '665.903850880205', '653.642803611157', '0');
+INSERT INTO `location` VALUES ('54', '0000000006', '26', '648.8879071633', '664.568615424936', '0');
+INSERT INTO `location` VALUES ('55', '0000000006', '26', '635.855800867604', '672.936434647473', '0');
+INSERT INTO `location` VALUES ('56', '0000000006', '26', '616.741066029338', '670.627895018464', '0');
+INSERT INTO `location` VALUES ('57', '0000000006', '26', '609.885159517147', '666.989306010936', '0');
+INSERT INTO `location` VALUES ('58', '0000000006', '26', '599.901413805524', '666.989306010936', '0');
+INSERT INTO `location` VALUES ('59', '0000000006', '26', '582.450563677561', '666.989306010936', '0');
+INSERT INTO `location` VALUES ('60', '0000000006', '26', '565.735309610583', '666.989306010936', '0');
+INSERT INTO `location` VALUES ('61', '0000000006', '26', '556.570498612451', '673.298286317081', '0');
+INSERT INTO `location` VALUES ('62', '0000000006', '26', '556.570498612451', '691.840072131414', '0');
+INSERT INTO `location` VALUES ('63', '0000000006', '26', '556.570498612451', '698.809529741226', '0');
+INSERT INTO `location` VALUES ('64', '0000000006', '26', '556.570498612451', '701.970674059984', '0');
+INSERT INTO `location` VALUES ('65', '0000000006', '26', '556.570498612451', '714.018399327459', '0');
+INSERT INTO `location` VALUES ('66', '0000000006', '26', '562.723427189954', '723.096356118728', '0');
+INSERT INTO `location` VALUES ('67', '0000000006', '26', '554.30068987029', '730.115992618887', '0');
+INSERT INTO `location` VALUES ('68', '0000000006', '26', '549.951225056256', '733.740902289698', '0');
+INSERT INTO `location` VALUES ('69', '0000000006', '26', '532.644759370569', '748.164372190911', '0');
+INSERT INTO `location` VALUES ('70', '0000000006', '26', '526.0583693936', '753.653569079275', '0');
+INSERT INTO `location` VALUES ('71', '0000000006', '26', '520.567664377174', '747.065369526198', '0');
+INSERT INTO `location` VALUES ('72', '0000000006', '26', '512.51543642705', '737.403644042205', '0');
+INSERT INTO `location` VALUES ('73', '0000000006', '26', '504.964799641365', '728.343768899015', '0');
+INSERT INTO `location` VALUES ('74', '0000000006', '26', '499.083119839719', '721.286445636406', '0');
+INSERT INTO `location` VALUES ('75', '0000000006', '26', '482.001279081455', '700.790247914496', '0');
+INSERT INTO `location` VALUES ('76', '0000000006', '26', '482.001279081455', '700.790247914496', '0');
+INSERT INTO `location` VALUES ('77', '0000000006', '26', '468.434019628095', '684.511133957414', '0');
+INSERT INTO `location` VALUES ('78', '0000000006', '26', '459.508494938579', '673.801555206682', '0');
+INSERT INTO `location` VALUES ('79', '0000000006', '26', '450.998016167822', '663.589982691632', '0');
+INSERT INTO `location` VALUES ('80', '0000000006', '26', '443.041869934856', '654.043543955725', '0');
+INSERT INTO `location` VALUES ('81', '0000000006', '26', '440.323124058714', '650.78136900505', '0');
+INSERT INTO `location` VALUES ('82', '0000000006', '26', '436.384045667361', '646.054938716077', '0');
+INSERT INTO `location` VALUES ('83', '0000000006', '26', '429.487863098722', '637.780331578973', '0');
+INSERT INTO `location` VALUES ('84', '0000000006', '26', '425.014617865592', '637.599031366073', '0');
+INSERT INTO `location` VALUES ('85', '0000000006', '26', '417.396865350061', '643.947781371889', '0');
+INSERT INTO `location` VALUES ('86', '0000000006', '26', '411.083122514537', '649.209750014481', '0');
+INSERT INTO `location` VALUES ('87', '0000000006', '26', '390.475919284078', '666.38410444021', '0');
+INSERT INTO `location` VALUES ('88', '0000000006', '26', '378.35949979909', '676.482111446732', '0');
+INSERT INTO `location` VALUES ('89', '0000000006', '26', '362.253874222371', '680.559319094984', '0');
+INSERT INTO `location` VALUES ('90', '0000000006', '26', '362.253874222371', '673.027796726437', '0');
+INSERT INTO `location` VALUES ('91', '0000000006', '26', '362.253874222371', '666.02646817057', '0');
+INSERT INTO `location` VALUES ('92', '0000000006', '26', '362.253874222371', '658.007770625405', '0');
+INSERT INTO `location` VALUES ('93', '0000000006', '26', '362.253874222371', '643.286054650085', '0');
+INSERT INTO `location` VALUES ('94', '0000000006', '26', '362.253874222371', '637.453965847377', '0');
+INSERT INTO `location` VALUES ('95', '0000000006', '26', '362.253874222371', '626.073974543015', '0');
+INSERT INTO `location` VALUES ('96', '0000000006', '26', '368.114028981743', '622.782601948125', '0');
+INSERT INTO `location` VALUES ('97', '0000000006', '26', '377.797281434848', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('98', '0000000006', '26', '389.194093632601', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('99', '0000000006', '26', '409.150279213065', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('100', '0000000006', '26', '421.000615365659', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('101', '0000000006', '26', '405.34139082124', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('102', '0000000006', '26', '392.225804319461', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('103', '0000000006', '26', '374.108175916221', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('104', '0000000006', '26', '356.675912476467', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('105', '0000000006', '26', '339.949279495604', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('106', '0000000006', '26', '329.675477166982', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('107', '0000000006', '26', '314.741682426162', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('108', '0000000006', '26', '301.869217842906', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('109', '0000000006', '26', '298.46812087772', '613.855393138245', '0');
+INSERT INTO `location` VALUES ('110', '0000000006', '26', '291.624587767846', '600.631265430009', '0');
+INSERT INTO `location` VALUES ('111', '0000000006', '26', '291.624587767846', '582.696665224615', '0');
+INSERT INTO `location` VALUES ('112', '0000000006', '26', '291.624587767846', '566.165712697428', '0');
+INSERT INTO `location` VALUES ('113', '0000000006', '26', '291.624587767846', '549.589761682317', '0');
+INSERT INTO `location` VALUES ('114', '0000000006', '26', '291.624587767846', '530.770676843585', '0');
+INSERT INTO `location` VALUES ('115', '0000000006', '26', '291.624587767846', '519.044762311267', '0');
+INSERT INTO `location` VALUES ('116', '0000000006', '26', '291.624587767846', '512.946987742089', '0');
+INSERT INTO `location` VALUES ('117', '0000000006', '26', '291.624587767846', '504.548514699792', '0');
+INSERT INTO `location` VALUES ('118', '0000000006', '26', '291.624587767846', '490.85874040471', '0');
+INSERT INTO `location` VALUES ('119', '0000000006', '26', '291.624587767846', '478.597645381462', '0');
+INSERT INTO `location` VALUES ('120', '0000000006', '26', '291.624587767846', '463.740028097291', '0');
+INSERT INTO `location` VALUES ('121', '0000000006', '26', '291.624587767846', '450.221696468998', '0');
+INSERT INTO `location` VALUES ('122', '0000000006', '26', '291.624587767846', '436.733318665294', '0');
+INSERT INTO `location` VALUES ('123', '0000000006', '26', '291.624587767846', '423.458432974057', '0');
+INSERT INTO `location` VALUES ('124', '0000000006', '22', '305.140146743351', '308.005304243955', '0');
+INSERT INTO `location` VALUES ('125', '0000000006', '22', '314.30901549058', '322.284971257237', '0');
+INSERT INTO `location` VALUES ('126', '0000000006', '22', '318.039641336465', '328.095076767414', '0');
+INSERT INTO `location` VALUES ('127', '0000000006', '22', '326.455987479037', '341.202759263225', '0');
+INSERT INTO `location` VALUES ('128', '0000000006', '22', '330.077815345132', '346.843421959252', '0');
+INSERT INTO `location` VALUES ('129', '0000000006', '22', '340.576658827378', '363.194401898446', '0');
+INSERT INTO `location` VALUES ('130', '0000000006', '22', '346.510804616316', '372.436286389365', '0');
+INSERT INTO `location` VALUES ('131', '0000000006', '22', '359.007724830029', '391.899086464597', '0');
+INSERT INTO `location` VALUES ('132', '0000000006', '22', '369.082705874897', '407.589939769627', '0');
+INSERT INTO `location` VALUES ('133', '0000000006', '22', '374.600719508658', '416.183736827597', '0');
+INSERT INTO `location` VALUES ('134', '0000000006', '22', '380.914100516341', '426.016245177652', '0');
+INSERT INTO `location` VALUES ('135', '0000000006', '22', '373.252138450407', '414.083446270154', '0');
+INSERT INTO `location` VALUES ('136', '0000000006', '22', '360.850708404009', '410.390901459656', '0');
+INSERT INTO `location` VALUES ('137', '0000000006', '22', '356.10687369721', '413.436882696104', '0');
+INSERT INTO `location` VALUES ('138', '0000000006', '22', '344.800561060318', '420.696582553698', '0');
+INSERT INTO `location` VALUES ('139', '0000000006', '22', '334.753627226458', '427.1476445812', '0');
+INSERT INTO `location` VALUES ('140', '0000000006', '22', '320.197301349795', '436.49415394174', '0');
+INSERT INTO `location` VALUES ('141', '0000000006', '22', '316.519580238414', '438.855591510823', '0');
+INSERT INTO `location` VALUES ('142', '0000000006', '22', '319.901678785864', '444.396780285735', '0');
+INSERT INTO `location` VALUES ('143', '0000000006', '22', '330.954431464755', '462.505474700427', '0');
+INSERT INTO `location` VALUES ('144', '0000000006', '22', '335.362836443362', '469.728151343347', '0');
+INSERT INTO `location` VALUES ('145', '0000000006', '22', '346.501442286718', '487.977506529613', '0');
+INSERT INTO `location` VALUES ('146', '0000000006', '22', '352.267329301407', '497.424265089411', '0');
+INSERT INTO `location` VALUES ('147', '0000000006', '22', '362.184539942747', '513.672501358476', '0');
+INSERT INTO `location` VALUES ('148', '0000000006', '22', '368.751767393642', '524.432166259613', '0');
+INSERT INTO `location` VALUES ('149', '0000000006', '22', '374.701874772102', '534.180749203745', '0');
+INSERT INTO `location` VALUES ('150', '0000000006', '22', '381.963688588679', '546.078415886537', '0');
+INSERT INTO `location` VALUES ('151', '0000000006', '22', '389.757741003421', '558.848095760059', '0');
+INSERT INTO `location` VALUES ('152', '0000000006', '22', '397.825797587076', '572.06670070296', '0');
+INSERT INTO `location` VALUES ('153', '0000000006', '22', '407.896613282829', '588.566601609036', '0');
+INSERT INTO `location` VALUES ('154', '0000000006', '22', '409.684436696131', '591.495749559731', '0');
+INSERT INTO `location` VALUES ('155', '0000000006', '22', '409.684436696131', '596.650093516347', '0');
+INSERT INTO `location` VALUES ('156', '0000000006', '22', '409.684436696131', '610.94243274025', '0');
+INSERT INTO `location` VALUES ('157', '0000000006', '22', '409.684436696131', '631.798209768732', '0');
+INSERT INTO `location` VALUES ('158', '0000000006', '22', '409.684436696131', '631.798209768732', '0');
+INSERT INTO `location` VALUES ('159', '0000000006', '22', '409.684436696131', '639.841326661653', '0');
+INSERT INTO `location` VALUES ('160', '0000000006', '22', '409.684436696131', '655.998299180542', '0');
+INSERT INTO `location` VALUES ('161', '0000000006', '22', '409.684436696131', '676.865317429195', '0');
+INSERT INTO `location` VALUES ('162', '0000000006', '22', '409.684436696131', '692.720993763081', '0');
+INSERT INTO `location` VALUES ('163', '0000000006', '22', '409.684436696131', '717.227556605835', '0');
+INSERT INTO `location` VALUES ('164', '0000000006', '22', '409.684436696131', '725.077642222646', '0');
+INSERT INTO `location` VALUES ('165', '0000000006', '22', '409.684436696131', '734.156695041352', '0');
+INSERT INTO `location` VALUES ('166', '0000000006', '22', '409.684436696131', '761.988072530844', '0');
+INSERT INTO `location` VALUES ('167', '0000000006', '22', '409.684436696131', '761.988072530844', '0');
+INSERT INTO `location` VALUES ('168', '0000000006', '22', '409.684436696131', '783.062304494449', '0');
+INSERT INTO `location` VALUES ('169', '0000000006', '22', '409.684436696131', '789.50190200425', '0');
+INSERT INTO `location` VALUES ('170', '0000000006', '22', '409.684436696131', '810.666180945479', '0');
+INSERT INTO `location` VALUES ('171', '0000000006', '22', '409.684436696131', '824.68505852531', '0');
+INSERT INTO `location` VALUES ('172', '0000000006', '22', '409.684436696131', '845.796097955678', '0');
+INSERT INTO `location` VALUES ('173', '0000000006', '22', '409.684436696131', '855.466206429072', '0');
+INSERT INTO `location` VALUES ('174', '0000000006', '22', '414.803391018665', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('175', '0000000006', '22', '418.463916129681', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('176', '0000000006', '22', '426.218850515332', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('177', '0000000006', '22', '429.736659832081', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('178', '0000000006', '22', '439.756892660182', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('179', '0000000006', '22', '452.458119651318', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('180', '0000000006', '22', '469.094032979586', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('181', '0000000006', '22', '477.265487055309', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('182', '0000000006', '22', '499.548729339397', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('183', '0000000006', '22', '510.025345051676', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('184', '0000000006', '22', '516.061996185469', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('185', '0000000006', '22', '524.605733254474', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('186', '0000000006', '22', '541.727365421845', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('187', '0000000006', '22', '548.67335534074', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('188', '0000000006', '22', '558.120541623809', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('189', '0000000006', '22', '573.369299624829', '872.241442237061', '0');
+INSERT INTO `location` VALUES ('190', '0000000006', '22', '584.337818502929', '875.484782707191', '0');
+INSERT INTO `location` VALUES ('191', '0000000006', '22', '584.337818502929', '890.077802659024', '0');
+INSERT INTO `location` VALUES ('192', '0000000006', '22', '584.337818502929', '897.225568584178', '0');
+INSERT INTO `location` VALUES ('193', '0000000006', '22', '584.337818502929', '913.857994094736', '0');
+INSERT INTO `location` VALUES ('194', '0000000006', '22', '584.337818502929', '918.640186810179', '0');
+INSERT INTO `location` VALUES ('195', '0000000006', '22', '584.337818502929', '925.237379313458', '0');
+INSERT INTO `location` VALUES ('196', '0000000006', '22', '584.337818502929', '942.663734416489', '0');
+INSERT INTO `location` VALUES ('197', '0000000006', '22', '584.337818502929', '968.746056241694', '0');
+INSERT INTO `location` VALUES ('198', '0000000006', '22', '584.337818502929', '980.706860858028', '0');
+INSERT INTO `location` VALUES ('199', '0000000006', '22', '584.337818502929', '997.598160648032', '0');
+INSERT INTO `location` VALUES ('200', '0000000006', '22', '584.337818502929', '1008.81620041259', '0');
+INSERT INTO `location` VALUES ('201', '0000000006', '22', '584.337818502929', '1012.78298722046', '0');
+INSERT INTO `location` VALUES ('202', '0000000006', '22', '584.337818502929', '1028.67862872967', '0');
+INSERT INTO `location` VALUES ('203', '0000000006', '22', '584.337818502929', '1043.28174455442', '0');
+INSERT INTO `location` VALUES ('204', '0000000006', '22', '578.499757437284', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('205', '0000000006', '22', '568.864199101707', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('206', '0000000006', '22', '565.805642528009', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('207', '0000000006', '22', '560.653216605556', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('208', '0000000006', '22', '546.37192146924', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('209', '0000000006', '22', '530.76615341894', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('210', '0000000006', '22', '502.987099349281', '1052.05836683885', '0');
+INSERT INTO `location` VALUES ('211', '0000000006', '22', '506.166515009959', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('212', '0000000006', '22', '510.112903576127', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('213', '0000000006', '22', '523.845742774444', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('214', '0000000006', '22', '543.378501064858', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('215', '0000000006', '22', '547.493376700921', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('216', '0000000006', '22', '554.937232275742', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('217', '0000000006', '22', '564.785881748205', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('218', '0000000006', '22', '585.85748097791', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('219', '0000000006', '22', '598.934181455072', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('220', '0000000006', '22', '612.798300094685', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('221', '0000000006', '22', '628.939002149288', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('222', '0000000006', '22', '650.800855407274', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('223', '0000000006', '22', '656.497391502621', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('224', '0000000006', '22', '672.727034715485', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('225', '0000000006', '22', '696.226786119413', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('226', '0000000006', '22', '699.629009068027', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('227', '0000000006', '22', '715.885267183898', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('228', '0000000006', '22', '726.851468371243', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('229', '0000000006', '22', '744.785526195091', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('230', '0000000006', '22', '760.006445272608', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('231', '0000000006', '22', '766.704037335251', '1043.66066835449', '0');
+INSERT INTO `location` VALUES ('232', '0000000006', '22', '772.827153293664', '1037.89639672661', '0');
+INSERT INTO `location` VALUES ('233', '0000000006', '22', '796.17680570345', '1037.89639672661', '0');
+INSERT INTO `location` VALUES ('234', '0000000006', '22', '792.284625237124', '1031.55517895847', '0');
+INSERT INTO `location` VALUES ('235', '0000000006', '22', '779.639565487175', '1031.55517895847', '0');
+INSERT INTO `location` VALUES ('236', '0000000006', '22', '762.604940632606', '1025.49937208021', '0');
+INSERT INTO `location` VALUES ('237', '0000000006', '22', '762.604940632606', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('238', '0000000006', '22', '774.716800447103', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('239', '0000000006', '22', '778.297507051859', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('240', '0000000006', '22', '788.128383069547', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('241', '0000000006', '22', '801.751576924013', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('242', '0000000006', '22', '825.21960363655', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('243', '0000000006', '22', '839.410968419878', '1012.06161396812', '0');
+INSERT INTO `location` VALUES ('244', '0000000006', '23', '304.979002068604', '307.754336282717', '0');
+INSERT INTO `location` VALUES ('245', '0000000006', '23', '315.696089570681', '324.445211144253', '0');
+INSERT INTO `location` VALUES ('246', '0000000006', '23', '323.339704428615', '336.349435968287', '0');
+INSERT INTO `location` VALUES ('247', '0000000006', '23', '329.142194229473', '345.386278406375', '0');
+INSERT INTO `location` VALUES ('248', '0000000006', '23', '337.84780930076', '358.94447056627', '0');
+INSERT INTO `location` VALUES ('249', '0000000006', '23', '342.655294259173', '366.431684776664', '0');
+INSERT INTO `location` VALUES ('250', '0000000006', '23', '347.597160549114', '374.128185510829', '0');
+INSERT INTO `location` VALUES ('251', '0000000006', '23', '349.436255562964', '389.195232206981', '0');
+INSERT INTO `location` VALUES ('252', '0000000006', '23', '338.546893855978', '396.187210951275', '0');
+INSERT INTO `location` VALUES ('253', '0000000006', '23', '325.447425808199', '404.598282657421', '0');
+INSERT INTO `location` VALUES ('254', '0000000006', '23', '313.013749765439', '412.581854233397', '0');
+INSERT INTO `location` VALUES ('255', '0000000006', '23', '293.92986799084', '424.835473804232', '0');
+INSERT INTO `location` VALUES ('256', '0000000006', '23', '286.692388276867', '422.238753566227', '0');
+INSERT INTO `location` VALUES ('257', '0000000006', '23', '277.873466736427', '408.504097036019', '0');
+INSERT INTO `location` VALUES ('258', '0000000006', '23', '275.963298713543', '405.529186601791', '0');
+INSERT INTO `location` VALUES ('259', '0000000006', '23', '263.261931780846', '385.747979627133', '0');
+INSERT INTO `location` VALUES ('260', '0000000006', '23', '258.063713725192', '377.652234672817', '0');
+INSERT INTO `location` VALUES ('261', '0000000006', '23', '264.489238117419', '370.55974336824', '0');
+INSERT INTO `location` VALUES ('262', '0000000006', '23', '271.290382680222', '378.917003267963', '0');
+INSERT INTO `location` VALUES ('263', '0000000006', '23', '281.24245161378', '391.146125270837', '0');
+INSERT INTO `location` VALUES ('264', '0000000006', '23', '285.923123770416', '396.897744480984', '0');
+INSERT INTO `location` VALUES ('265', '0000000006', '23', '294.881899815211', '407.906306216203', '0');
+INSERT INTO `location` VALUES ('266', '0000000006', '23', '294.881899815211', '423.968152020069', '0');
+INSERT INTO `location` VALUES ('267', '0000000006', '23', '294.881899815211', '440.828858698893', '0');
+INSERT INTO `location` VALUES ('268', '0000000006', '23', '294.881899815211', '449.798665415904', '0');
+INSERT INTO `location` VALUES ('269', '0000000006', '23', '294.881899815211', '463.084149233474', '0');
+INSERT INTO `location` VALUES ('270', '0000000006', '23', '294.881899815211', '483.687150927668', '0');
+INSERT INTO `location` VALUES ('271', '0000000006', '23', '294.881899815211', '497.37231337413', '0');
+INSERT INTO `location` VALUES ('272', '0000000006', '23', '294.881899815211', '519.287226188637', '0');
+INSERT INTO `location` VALUES ('273', '0000000006', '23', '294.881899815211', '530.581284807704', '0');
+INSERT INTO `location` VALUES ('274', '0000000006', '23', '294.881899815211', '546.902349480603', '0');
+INSERT INTO `location` VALUES ('275', '0000000006', '23', '294.881899815211', '552.840437029663', '0');
+INSERT INTO `location` VALUES ('276', '0000000006', '23', '300.603805467877', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('277', '0000000006', '23', '315.421636331519', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('278', '0000000006', '23', '332.882003788529', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('279', '0000000006', '23', '341.912675874931', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('280', '0000000006', '23', '360.729791752686', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('281', '0000000006', '23', '360.729791752686', '562.451118390018', '0');
+INSERT INTO `location` VALUES ('282', '0000000006', '23', '384.438045169441', '566.407976542809', '0');
+INSERT INTO `location` VALUES ('283', '0000000006', '23', '384.505670891393', '577.219775509445', '0');
+INSERT INTO `location` VALUES ('284', '0000000006', '23', '384.62642860648', '596.526159256709', '0');
+INSERT INTO `location` VALUES ('285', '0000000006', '23', '384.675769845964', '604.414689636375', '0');
+INSERT INTO `location` VALUES ('286', '0000000006', '23', '384.75554519413', '617.16893464804', '0');
+INSERT INTO `location` VALUES ('287', '0000000006', '23', '384.83911070172', '630.529139057377', '0');
+INSERT INTO `location` VALUES ('288', '0000000006', '23', '384.971563767441', '651.705340623261', '0');
+INSERT INTO `location` VALUES ('289', '0000000006', '23', '385.061761863097', '666.12594345392', '0');
+INSERT INTO `location` VALUES ('290', '0000000006', '23', '385.129469213399', '676.950792917965', '0');
+INSERT INTO `location` VALUES ('291', '0000000006', '23', '385.215200373945', '690.657235470352', '0');
+INSERT INTO `location` VALUES ('292', '0000000006', '23', '385.291236560767', '702.813674505448', '0');
+INSERT INTO `location` VALUES ('293', '0000000006', '23', '385.385141903708', '717.826980988065', '0');
+INSERT INTO `location` VALUES ('294', '0000000006', '23', '385.417542893362', '723.007154690375', '0');
+INSERT INTO `location` VALUES ('295', '0000000006', '23', '385.457801527245', '736.383439637625', '0');
+INSERT INTO `location` VALUES ('296', '0000000006', '23', '376.911018360541', '751.907878697288', '0');
+INSERT INTO `location` VALUES ('297', '0000000006', '23', '363.399255429063', '751.907878697288', '0');
+INSERT INTO `location` VALUES ('298', '0000000006', '23', '354.862019179989', '751.907878697288', '0');
+INSERT INTO `location` VALUES ('299', '0000000006', '23', '340.797413104996', '743.008239922864', '0');
+INSERT INTO `location` VALUES ('300', '0000000006', '23', '330.760132323085', '733.406291421028', '0');
+INSERT INTO `location` VALUES ('301', '0000000006', '23', '334.62242401712', '718.157449502179', '0');
+INSERT INTO `location` VALUES ('302', '0000000006', '23', '343.868191662922', '727.002214008012', '0');
+INSERT INTO `location` VALUES ('303', '0000000006', '23', '352.75183717228', '735.500562170509', '0');
+INSERT INTO `location` VALUES ('304', '0000000006', '23', '352.75183717228', '735.500562170509', '0');
+INSERT INTO `location` VALUES ('305', '0000000006', '23', '364.835877796846', '747.060499397758', '0');
+INSERT INTO `location` VALUES ('306', '0000000006', '23', '371.716600337815', '753.642794436558', '0');
+INSERT INTO `location` VALUES ('307', '0000000006', '23', '381.702239747505', '763.195341331782', '0');
+INSERT INTO `location` VALUES ('308', '0000000006', '23', '393.176919534042', '774.172346636241', '0');
+INSERT INTO `location` VALUES ('309', '0000000006', '23', '402.242014238998', '779.705047378273', '0');
+INSERT INTO `location` VALUES ('310', '0000000006', '23', '408.862902411647', '779.705047378273', '0');
+INSERT INTO `location` VALUES ('311', '0000000006', '23', '426.673020755567', '776.847863909876', '0');
+INSERT INTO `location` VALUES ('312', '0000000006', '23', '438.544964958046', '770.210648374761', '0');
+INSERT INTO `location` VALUES ('313', '0000000006', '23', '448.369719181855', '787.784122270714', '0');
+INSERT INTO `location` VALUES ('314', '0000000006', '23', '449.857945472354', '790.446102944386', '0');
+INSERT INTO `location` VALUES ('315', '0000000006', '23', '429.129651402217', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('316', '0000000006', '23', '416.436913906225', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('317', '0000000006', '23', '401.595011322853', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('318', '0000000006', '23', '387.071616976616', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('319', '0000000006', '23', '387.071616976616', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('320', '0000000006', '23', '368.764901563619', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('321', '0000000006', '23', '360.949140133663', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('322', '0000000006', '23', '354.544331263845', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('323', '0000000006', '23', '344.92036603354', '797.181292775417', '0');
+INSERT INTO `location` VALUES ('324', '0000000006', '23', '338.128919984541', '806.553791009452', '0');
+INSERT INTO `location` VALUES ('325', '0000000006', '23', '338.128919984541', '812.414471709965', '0');
+INSERT INTO `location` VALUES ('326', '0000000006', '23', '338.128919984541', '831.802082436955', '0');
+INSERT INTO `location` VALUES ('327', '0000000006', '23', '338.128919984541', '843.70950835138', '0');
+INSERT INTO `location` VALUES ('328', '0000000006', '23', '338.128919984541', '862.67575669601', '0');
+INSERT INTO `location` VALUES ('329', '0000000006', '23', '338.128919984541', '871.933979239645', '0');
+INSERT INTO `location` VALUES ('330', '0000000006', '23', '338.128919984541', '889.235192283619', '0');
+INSERT INTO `location` VALUES ('331', '0000000006', '23', '338.128919984541', '901.726273171468', '0');
+INSERT INTO `location` VALUES ('332', '0000000006', '23', '338.128919984541', '918.302003519474', '0');
+INSERT INTO `location` VALUES ('333', '0000000006', '23', '338.128919984541', '942.689974153279', '0');
+INSERT INTO `location` VALUES ('334', '0000000006', '23', '338.128919984541', '951.317005531727', '0');
+INSERT INTO `location` VALUES ('335', '0000000006', '23', '338.128919984541', '964.789320103688', '0');
+INSERT INTO `location` VALUES ('336', '0000000006', '23', '338.128919984541', '980.478757836953', '0');
+INSERT INTO `location` VALUES ('337', '0000000006', '23', '338.128919984541', '987.386288059274', '0');
+INSERT INTO `location` VALUES ('338', '0000000006', '23', '338.128919984541', '1005.28623690885', '0');
+INSERT INTO `location` VALUES ('339', '0000000006', '23', '351.40655489252', '1011.73188083', '0');
+INSERT INTO `location` VALUES ('340', '0000000006', '23', '364.960623973609', '1011.73188083', '0');
+INSERT INTO `location` VALUES ('341', '0000000006', '23', '372.922967173253', '1011.73188083', '0');
+INSERT INTO `location` VALUES ('342', '0000000006', '23', '393.937533223397', '1011.73188083', '0');
+INSERT INTO `location` VALUES ('343', '0000000006', '23', '387.712364946586', '1011.73188083', '0');
+INSERT INTO `location` VALUES ('344', '0000000006', '23', '377.138960499643', '1019.72769481629', '0');
+INSERT INTO `location` VALUES ('345', '0000000006', '23', '377.138960499643', '1030.93520399402', '0');
+INSERT INTO `location` VALUES ('346', '0000000006', '23', '377.138960499643', '1040.42029361646', '0');
+INSERT INTO `location` VALUES ('347', '0000000006', '23', '377.138960499643', '1056.9725039451', '0');
+INSERT INTO `location` VALUES ('348', '0000000006', '23', '377.138960499643', '1067.88700292129', '0');
+INSERT INTO `location` VALUES ('349', '0000000006', '23', '377.138960499643', '1080.9192781901', '0');
+INSERT INTO `location` VALUES ('350', '0000000006', '23', '377.138960499643', '1092.66121110493', '0');
+INSERT INTO `location` VALUES ('351', '0000000006', '23', '377.138960499643', '1099.91837364189', '0');
+INSERT INTO `location` VALUES ('352', '0000000006', '23', '377.138960499643', '1118.15812050281', '0');
+INSERT INTO `location` VALUES ('353', '0000000006', '23', '377.138960499643', '1124.27829437387', '0');
+INSERT INTO `location` VALUES ('354', '0000000006', '23', '377.138960499643', '1145.56195794312', '0');
+INSERT INTO `location` VALUES ('355', '0000000006', '23', '377.138960499643', '1153.76623188039', '0');
+INSERT INTO `location` VALUES ('356', '0000000006', '23', '377.138960499643', '1169.18126292653', '0');
+INSERT INTO `location` VALUES ('357', '0000000006', '23', '377.138960499643', '1181.68219232057', '0');
+INSERT INTO `location` VALUES ('358', '0000000006', '23', '377.138960499643', '1196.63900066433', '0');
+INSERT INTO `location` VALUES ('359', '0000000006', '23', '377.138960499643', '1210.53196132286', '0');
+INSERT INTO `location` VALUES ('360', '0000000006', '23', '377.138960499643', '1221.38360715132', '0');
+INSERT INTO `location` VALUES ('361', '0000000006', '23', '377.138960499643', '1232.42912414819', '0');
+INSERT INTO `location` VALUES ('362', '0000000006', '23', '377.138960499643', '1251.52954303809', '0');
+INSERT INTO `location` VALUES ('363', '0000000006', '23', '377.138960499643', '1259.56099235253', '0');
+INSERT INTO `location` VALUES ('364', '0000000006', '24', '304.622131072678', '307.198542636956', '0');
+INSERT INTO `location` VALUES ('365', '0000000006', '24', '308.491396315416', '313.224566214736', '0');
+INSERT INTO `location` VALUES ('366', '0000000006', '24', '315.225095925893', '323.711682003597', '0');
+INSERT INTO `location` VALUES ('367', '0000000006', '24', '322.12869448909', '334.463399733837', '0');
+INSERT INTO `location` VALUES ('368', '0000000006', '24', '332.755617059462', '351.013851034244', '0');
+INSERT INTO `location` VALUES ('369', '0000000006', '24', '338.803652713001', '360.433108480054', '0');
+INSERT INTO `location` VALUES ('370', '0000000006', '24', '346.506143668833', '372.429027393752', '0');
+INSERT INTO `location` VALUES ('371', '0000000006', '24', '352.908837698345', '382.400632533916', '0');
+INSERT INTO `location` VALUES ('372', '0000000006', '24', '361.407943998809', '395.637206338921', '0');
+INSERT INTO `location` VALUES ('373', '0000000006', '24', '370.530769265147', '409.845164879392', '0');
+INSERT INTO `location` VALUES ('374', '0000000006', '24', '377.321550918195', '420.421180682294', '0');
+INSERT INTO `location` VALUES ('375', '0000000006', '24', '379.352467138614', '423.584145292102', '0');
+INSERT INTO `location` VALUES ('376', '0000000006', '24', '379.352467138614', '423.584145292102', '0');
+INSERT INTO `location` VALUES ('377', '0000000006', '24', '386.189718215163', '434.232532934124', '0');
+INSERT INTO `location` VALUES ('378', '0000000006', '24', '390.838155999172', '441.472045846517', '0');
+INSERT INTO `location` VALUES ('379', '0000000006', '24', '397.270313706524', '451.489537946146', '0');
+INSERT INTO `location` VALUES ('380', '0000000006', '24', '394.777392015166', '460.630472949468', '0');
+INSERT INTO `location` VALUES ('381', '0000000006', '24', '383.350250427371', '467.967756184227', '0');
+INSERT INTO `location` VALUES ('382', '0000000006', '24', '371.56601341716', '475.534327752904', '0');
+INSERT INTO `location` VALUES ('383', '0000000006', '24', '363.845981783668', '488.477382184793', '0');
+INSERT INTO `location` VALUES ('384', '0000000006', '24', '370.603399184807', '499.001436244044', '0');
+INSERT INTO `location` VALUES ('385', '0000000006', '24', '377.960874456599', '510.46002506629', '0');
+INSERT INTO `location` VALUES ('386', '0000000006', '24', '380.459333118888', '514.351143886671', '0');
+INSERT INTO `location` VALUES ('387', '0000000006', '24', '386.350086620214', '523.525448893673', '0');
+INSERT INTO `location` VALUES ('388', '0000000006', '24', '393.365166247893', '534.45078809489', '0');
+INSERT INTO `location` VALUES ('389', '0000000006', '24', '393.365166247893', '534.45078809489', '0');
+INSERT INTO `location` VALUES ('390', '0000000006', '24', '399.660410156955', '544.255049587451', '0');
+INSERT INTO `location` VALUES ('391', '0000000006', '24', '404.402292724985', '551.640094128307', '0');
+INSERT INTO `location` VALUES ('392', '0000000006', '24', '412.496205187437', '564.245615920009', '0');
+INSERT INTO `location` VALUES ('393', '0000000006', '24', '414.238318562052', '566.958796746859', '0');
+INSERT INTO `location` VALUES ('394', '0000000006', '24', '425.254913601494', '584.116126960682', '0');
+INSERT INTO `location` VALUES ('395', '0000000006', '24', '427.600039040107', '587.768443434063', '0');
+INSERT INTO `location` VALUES ('396', '0000000006', '24', '436.354581194692', '601.402835011429', '0');
+INSERT INTO `location` VALUES ('397', '0000000006', '24', '439.796234375394', '606.762892260639', '0');
+INSERT INTO `location` VALUES ('398', '0000000006', '24', '443.296047557025', '612.21352834456', '0');
+INSERT INTO `location` VALUES ('399', '0000000006', '24', '447.627242043021', '618.958964094033', '0');
+INSERT INTO `location` VALUES ('400', '0000000006', '24', '458.520575689683', '635.924326062586', '0');
+INSERT INTO `location` VALUES ('401', '0000000006', '24', '452.737133767604', '639.637831415438', '0');
+INSERT INTO `location` VALUES ('402', '0000000006', '24', '443.197376910875', '645.763238850953', '0');
+INSERT INTO `location` VALUES ('403', '0000000006', '24', '435.046382735695', '650.996932023359', '0');
+INSERT INTO `location` VALUES ('404', '0000000006', '24', '419.904834219731', '660.719208519271', '0');
+INSERT INTO `location` VALUES ('405', '0000000006', '24', '413.282623151059', '673.782611406245', '0');
+INSERT INTO `location` VALUES ('406', '0000000006', '24', '412.870346324186', '677.321951232413', '0');
+INSERT INTO `location` VALUES ('407', '0000000006', '24', '411.907545373416', '685.587464905774', '0');
+INSERT INTO `location` VALUES ('408', '0000000006', '24', '410.599374603946', '696.81793094708', '0');
+INSERT INTO `location` VALUES ('409', '0000000006', '24', '409.315298309703', '707.841549234142', '0');
+INSERT INTO `location` VALUES ('410', '0000000006', '24', '407.136681579963', '726.544674064145', '0');
+INSERT INTO `location` VALUES ('411', '0000000006', '24', '406.253496462669', '734.126696762882', '0');
+INSERT INTO `location` VALUES ('412', '0000000006', '24', '404.860851415185', '746.082362856604', '0');
+INSERT INTO `location` VALUES ('413', '0000000006', '24', '406.378180072691', '751.918713156966', '0');
+INSERT INTO `location` VALUES ('414', '0000000006', '24', '408.842663070052', '765.449024350111', '0');
+INSERT INTO `location` VALUES ('415', '0000000006', '24', '408.842663070052', '779.135745569094', '0');
+INSERT INTO `location` VALUES ('416', '0000000006', '24', '408.842663070052', '783.688868863004', '0');
+INSERT INTO `location` VALUES ('417', '0000000006', '24', '408.842663070052', '800.52451121617', '0');
+INSERT INTO `location` VALUES ('418', '0000000006', '24', '408.842663070052', '810.7332607505', '0');
+INSERT INTO `location` VALUES ('419', '0000000006', '24', '408.842663070052', '813.754638624805', '0');
+INSERT INTO `location` VALUES ('420', '0000000006', '24', '408.842663070052', '829.398271278673', '0');
+INSERT INTO `location` VALUES ('421', '0000000006', '24', '408.842663070052', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('422', '0000000006', '24', '424.764690813241', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('423', '0000000006', '24', '431.469874193292', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('424', '0000000006', '24', '446.373475898388', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('425', '0000000006', '24', '456.622738129557', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('426', '0000000006', '24', '445.278679627558', '843.829834948954', '0');
+INSERT INTO `location` VALUES ('427', '0000000006', '24', '445.278679627558', '859.575279200412', '0');
+INSERT INTO `location` VALUES ('428', '0000000006', '24', '445.278679627558', '875.366007457216', '0');
+INSERT INTO `location` VALUES ('429', '0000000006', '24', '445.278679627558', '880.086543784672', '0');
+INSERT INTO `location` VALUES ('430', '0000000006', '24', '445.278679627558', '893.411114449342', '0');
+INSERT INTO `location` VALUES ('431', '0000000006', '24', '445.278679627558', '910.024855262795', '0');
+INSERT INTO `location` VALUES ('432', '0000000006', '24', '452.418537969799', '910.024855262795', '0');
+INSERT INTO `location` VALUES ('433', '0000000006', '24', '458.172730322793', '910.024855262795', '0');
+INSERT INTO `location` VALUES ('434', '0000000006', '24', '461.706642965186', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('435', '0000000006', '24', '451.390183286374', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('436', '0000000006', '24', '434.309826243068', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('437', '0000000006', '24', '427.527605468971', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('438', '0000000006', '24', '415.80048477124', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('439', '0000000006', '24', '401.015529062231', '900.564519616271', '0');
+INSERT INTO `location` VALUES ('440', '0000000006', '24', '392.477823258243', '897.446079359817', '0');
+INSERT INTO `location` VALUES ('441', '0000000006', '24', '392.477823258243', '887.923678219047', '0');
+INSERT INTO `location` VALUES ('442', '0000000006', '24', '392.477823258243', '872.324416215493', '0');
+INSERT INTO `location` VALUES ('443', '0000000006', '24', '392.477823258243', '857.97301663082', '0');
+INSERT INTO `location` VALUES ('444', '0000000006', '24', '392.477823258243', '832.170828864639', '0');
+INSERT INTO `location` VALUES ('445', '0000000006', '24', '392.477823258243', '822.682643624217', '0');
+INSERT INTO `location` VALUES ('446', '0000000006', '24', '392.477823258243', '817.900734934918', '0');
+INSERT INTO `location` VALUES ('447', '0000000006', '24', '392.477823258243', '808.666010563457', '0');
+INSERT INTO `location` VALUES ('448', '0000000006', '24', '392.477823258243', '801.389426911212', '0');
+INSERT INTO `location` VALUES ('449', '0000000006', '24', '392.477823258243', '778.094188451729', '0');
+INSERT INTO `location` VALUES ('450', '0000000006', '24', '392.477823258243', '770.506327178524', '0');
+INSERT INTO `location` VALUES ('451', '0000000006', '24', '392.477823258243', '770.506327178524', '0');
+INSERT INTO `location` VALUES ('452', '0000000006', '24', '392.477823258243', '756.037534178662', '0');
+INSERT INTO `location` VALUES ('453', '0000000006', '24', '392.477823258243', '740.233610915913', '0');
+INSERT INTO `location` VALUES ('454', '0000000006', '24', '392.477823258243', '735.135992940012', '0');
+INSERT INTO `location` VALUES ('455', '0000000006', '24', '392.477823258243', '720.383740635784', '0');
+INSERT INTO `location` VALUES ('456', '0000000006', '24', '392.477823258243', '707.23553493848', '0');
+INSERT INTO `location` VALUES ('457', '0000000006', '24', '392.477823258243', '692.117532861148', '0');
+INSERT INTO `location` VALUES ('458', '0000000006', '24', '392.477823258243', '680.979860527636', '0');
+INSERT INTO `location` VALUES ('459', '0000000006', '24', '392.477823258243', '684.923322875946', '0');
+INSERT INTO `location` VALUES ('460', '0000000006', '24', '392.477823258243', '705.87764161542', '0');
+INSERT INTO `location` VALUES ('461', '0000000006', '24', '392.477823258243', '715.217918667671', '0');
+INSERT INTO `location` VALUES ('462', '0000000006', '24', '392.477823258243', '725.908416195735', '0');
+INSERT INTO `location` VALUES ('463', '0000000006', '24', '392.477823258243', '747.810985438953', '0');
+INSERT INTO `location` VALUES ('464', '0000000006', '24', '392.477823258243', '757.56017367701', '0');
+INSERT INTO `location` VALUES ('465', '0000000006', '24', '392.477823258243', '776.959638145947', '0');
+INSERT INTO `location` VALUES ('466', '0000000006', '24', '392.477823258243', '779.542085082698', '0');
+INSERT INTO `location` VALUES ('467', '0000000006', '24', '392.477823258243', '765.71774781119', '0');
+INSERT INTO `location` VALUES ('468', '0000000006', '24', '392.477823258243', '743.578540227571', '0');
+INSERT INTO `location` VALUES ('469', '0000000006', '24', '392.477823258243', '739.757086598276', '0');
+INSERT INTO `location` VALUES ('470', '0000000006', '24', '392.477823258243', '727.814714558152', '0');
+INSERT INTO `location` VALUES ('471', '0000000006', '24', '392.477823258243', '718.548423906284', '0');
+INSERT INTO `location` VALUES ('472', '0000000006', '24', '392.477823258243', '697.026036932561', '0');
+INSERT INTO `location` VALUES ('473', '0000000006', '24', '392.477823258243', '693.345881750536', '0');
+INSERT INTO `location` VALUES ('474', '0000000006', '24', '392.477823258243', '690.137829440608', '0');
+INSERT INTO `location` VALUES ('475', '0000000006', '24', '392.477823258243', '675.093277701837', '0');
+INSERT INTO `location` VALUES ('476', '0000000006', '24', '392.477823258243', '663.031342350607', '0');
+INSERT INTO `location` VALUES ('477', '0000000006', '24', '380.77395918882', '663.031342350607', '0');
+INSERT INTO `location` VALUES ('478', '0000000006', '24', '372.828794788202', '663.031342350607', '0');
+INSERT INTO `location` VALUES ('479', '0000000006', '24', '353.590440454758', '663.031342350607', '0');
+INSERT INTO `location` VALUES ('480', '0000000006', '24', '353.590440454758', '651.958987625278', '0');
+INSERT INTO `location` VALUES ('481', '0000000006', '24', '353.590440454758', '632.818985386946', '0');
+INSERT INTO `location` VALUES ('482', '0000000006', '24', '353.590440454758', '619.623576614036', '0');
+INSERT INTO `location` VALUES ('483', '0000000006', '24', '353.590440454758', '603.722569055119', '0');
+INSERT INTO `location` VALUES ('484', '0000000006', '24', '353.590440454758', '600.512317546838', '0');
+INSERT INTO `location` VALUES ('485', '0000000006', '25', '304.07753690107', '306.350387467292', '0');
+INSERT INTO `location` VALUES ('486', '0000000006', '25', '310.827543282983', '316.862899547953', '0');
+INSERT INTO `location` VALUES ('487', '0000000006', '25', '310.827543282983', '316.862899547953', '0');
+INSERT INTO `location` VALUES ('488', '0000000006', '25', '316.083580775937', '325.048692940555', '0');
+INSERT INTO `location` VALUES ('489', '0000000006', '25', '320.120753790525', '331.336217379243', '0');
+INSERT INTO `location` VALUES ('490', '0000000006', '25', '332.617173825036', '350.798238471523', '0');
+INSERT INTO `location` VALUES ('491', '0000000006', '25', '340.486487080642', '363.053967723534', '0');
+INSERT INTO `location` VALUES ('492', '0000000006', '25', '340.405072472474', '379.056939051607', '0');
+INSERT INTO `location` VALUES ('493', '0000000006', '25', '334.512187532865', '392.054002617269', '0');
+INSERT INTO `location` VALUES ('494', '0000000006', '25', '330.555864626918', '400.779878113198', '0');
+INSERT INTO `location` VALUES ('495', '0000000006', '25', '329.220434059559', '403.725239536232', '0');
+INSERT INTO `location` VALUES ('496', '0000000006', '25', '329.220434059559', '403.725239536232', '0');
+INSERT INTO `location` VALUES ('497', '0000000006', '25', '327.114878957849', '408.369150588013', '0');
+INSERT INTO `location` VALUES ('498', '0000000006', '25', '322.713445607134', '418.076740270405', '0');
+INSERT INTO `location` VALUES ('499', '0000000006', '25', '317.159371131923', '430.326539773112', '0');
+INSERT INTO `location` VALUES ('500', '0000000006', '25', '309.564747341393', '447.076876692021', '0');
+INSERT INTO `location` VALUES ('501', '0000000006', '25', '318.43385705304', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('502', '0000000006', '25', '332.783266945497', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('503', '0000000006', '25', '340.534249335748', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('504', '0000000006', '25', '345.077560497669', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('505', '0000000006', '25', '357.964836947608', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('506', '0000000006', '25', '361.931753637024', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('507', '0000000006', '25', '366.609782632195', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('508', '0000000006', '25', '386.373897156433', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('509', '0000000006', '25', '396.736885508277', '449.257559349695', '0');
+INSERT INTO `location` VALUES ('510', '0000000006', '25', '403.52404880895', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('511', '0000000006', '25', '395.789654460491', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('512', '0000000006', '25', '380.586864067229', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('513', '0000000006', '25', '375.880673419206', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('514', '0000000006', '25', '359.445368952106', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('515', '0000000006', '25', '342.596346669353', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('516', '0000000006', '25', '326.126935192604', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('517', '0000000006', '25', '318.119906014751', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('518', '0000000006', '25', '311.845025092351', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('519', '0000000006', '25', '308.322545488353', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('520', '0000000006', '25', '299.062877522536', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('521', '0000000006', '25', '288.079739270254', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('522', '0000000006', '25', '276.66950764436', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('523', '0000000006', '25', '259.737560960219', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('524', '0000000006', '25', '241.984046627057', '433.20548155711', '0');
+INSERT INTO `location` VALUES ('525', '0000000006', '25', '235.1150940908', '425.991143413288', '0');
+INSERT INTO `location` VALUES ('526', '0000000006', '25', '235.1150940908', '406.564026858359', '0');
+INSERT INTO `location` VALUES ('527', '0000000006', '25', '235.1150940908', '400.125317858234', '0');
+INSERT INTO `location` VALUES ('528', '0000000006', '25', '235.1150940908', '386.853820015145', '0');
+INSERT INTO `location` VALUES ('529', '0000000006', '25', '235.1150940908', '378.848495264239', '0');
+INSERT INTO `location` VALUES ('530', '0000000006', '25', '235.1150940908', '356.083521102024', '0');
+INSERT INTO `location` VALUES ('531', '0000000006', '25', '241.359953082387', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('532', '0000000006', '25', '256.333587312127', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('533', '0000000006', '25', '272.029458699037', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('534', '0000000006', '25', '281.208365604269', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('535', '0000000006', '25', '308.328794375748', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('536', '0000000006', '25', '317.970905325131', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('537', '0000000006', '25', '331.344296827435', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('538', '0000000006', '25', '343.463224759546', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('539', '0000000006', '25', '357.507223338575', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('540', '0000000006', '25', '363.599905527883', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('541', '0000000006', '25', '372.643359062948', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('542', '0000000006', '25', '385.075244618568', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('543', '0000000006', '25', '398.624823472683', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('544', '0000000006', '25', '421.92192213725', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('545', '0000000006', '25', '428.721835685416', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('546', '0000000006', '25', '449.419184601621', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('547', '0000000006', '25', '464.497107237333', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('548', '0000000006', '25', '485.384996236988', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('549', '0000000006', '25', '495.348138608958', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('550', '0000000006', '25', '520.102545304677', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('551', '0000000006', '25', '533.575439217023', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('552', '0000000006', '25', '552.702293634635', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('553', '0000000006', '25', '566.675778512365', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('554', '0000000006', '25', '578.664781361108', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('555', '0000000006', '25', '588.812515035958', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('556', '0000000006', '25', '599.43049375246', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('557', '0000000006', '25', '617.385904318874', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('558', '0000000006', '25', '631.366091375227', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('559', '0000000006', '25', '645.789098761731', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('560', '0000000006', '25', '656.771635847154', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('561', '0000000006', '25', '670.676096678932', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('562', '0000000006', '25', '684.161307809629', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('563', '0000000006', '25', '692.627492447372', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('564', '0000000006', '25', '705.7992002915', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('565', '0000000006', '25', '727.770480481896', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('566', '0000000006', '25', '741.734318968362', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('567', '0000000006', '25', '756.231044113857', '341.515236289175', '0');
+INSERT INTO `location` VALUES ('568', '0000000006', '25', '763.709442557988', '348.908955711108', '0');
+INSERT INTO `location` VALUES ('569', '0000000006', '25', '763.709442557988', '361.508080061693', '0');
+INSERT INTO `location` VALUES ('570', '0000000006', '25', '763.709442557988', '367.105128974356', '0');
+INSERT INTO `location` VALUES ('571', '0000000006', '25', '763.709442557988', '385.789554832438', '0');
+INSERT INTO `location` VALUES ('572', '0000000006', '25', '763.709442557988', '399.546393406279', '0');
+INSERT INTO `location` VALUES ('573', '0000000006', '25', '763.709442557988', '414.770967663899', '0');
+INSERT INTO `location` VALUES ('574', '0000000006', '25', '763.709442557988', '426.791705721226', '0');
+INSERT INTO `location` VALUES ('575', '0000000006', '25', '763.709442557988', '450.153036825992', '0');
+INSERT INTO `location` VALUES ('576', '0000000006', '25', '763.709442557988', '467.861315891081', '0');
+INSERT INTO `location` VALUES ('577', '0000000006', '25', '763.709442557988', '481.384169395715', '0');
+INSERT INTO `location` VALUES ('578', '0000000006', '25', '763.709442557988', '493.482682109978', '0');
+INSERT INTO `location` VALUES ('579', '0000000006', '25', '763.709442557988', '513.372511748625', '0');
+INSERT INTO `location` VALUES ('580', '0000000006', '25', '763.709442557988', '522.896408568537', '0');
+INSERT INTO `location` VALUES ('581', '0000000006', '25', '763.709442557988', '546.414982150942', '0');
+INSERT INTO `location` VALUES ('582', '0000000006', '25', '763.709442557988', '555.593482712451', '0');
+INSERT INTO `location` VALUES ('583', '0000000006', '25', '763.709442557988', '565.970122121675', '0');
+INSERT INTO `location` VALUES ('584', '0000000006', '25', '763.709442557988', '565.970122121675', '0');
+INSERT INTO `location` VALUES ('585', '0000000006', '25', '763.709442557988', '578.276512379227', '0');
+INSERT INTO `location` VALUES ('586', '0000000006', '25', '763.709442557988', '600.715937259542', '0');
+INSERT INTO `location` VALUES ('587', '0000000006', '25', '763.709442557988', '607.251024103425', '0');
+INSERT INTO `location` VALUES ('588', '0000000006', '25', '763.709442557988', '616.09165473788', '0');
+INSERT INTO `location` VALUES ('589', '0000000006', '25', '763.709442557988', '626.82132499123', '0');
+INSERT INTO `location` VALUES ('590', '0000000006', '25', '763.709442557988', '639.057496211426', '0');
+INSERT INTO `location` VALUES ('591', '0000000006', '25', '763.709442557988', '647.266393877035', '0');
+INSERT INTO `location` VALUES ('592', '0000000006', '25', '763.709442557988', '672.513469306454', '0');
+INSERT INTO `location` VALUES ('593', '0000000006', '25', '763.709442557988', '676.530781944916', '0');
+INSERT INTO `location` VALUES ('594', '0000000006', '25', '763.709442557988', '687.529927789867', '0');
+INSERT INTO `location` VALUES ('595', '0000000006', '25', '763.709442557988', '696.882074942514', '0');
+INSERT INTO `location` VALUES ('596', '0000000006', '25', '763.709442557988', '715.710777298715', '0');
+INSERT INTO `location` VALUES ('597', '0000000006', '25', '763.709442557988', '723.671308822632', '0');
+INSERT INTO `location` VALUES ('598', '0000000006', '25', '769.708603109454', '731.624536212236', '0');
+INSERT INTO `location` VALUES ('599', '0000000006', '25', '782.41334813669', '731.624536212236', '0');
+INSERT INTO `location` VALUES ('600', '0000000006', '25', '798.802912153524', '731.624536212236', '0');
+INSERT INTO `location` VALUES ('601', '0000000006', '25', '817.751691264554', '731.624536212236', '0');
+INSERT INTO `location` VALUES ('602', '0000000006', '25', '828.415239135024', '731.624536212236', '0');
+INSERT INTO `location` VALUES ('603', '0000000006', '25', '837.389160462643', '735.552080458896', '0');
+INSERT INTO `location` VALUES ('604', '0000000006', '25', '837.389160462643', '751.418026064923', '0');
 
 -- ----------------------------
 -- Table structure for module
@@ -2424,21 +2416,13 @@ CREATE TABLE `organ` (
   `address` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`organ_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of organ
 -- ----------------------------
-INSERT INTO `organ` VALUES ('1', '1', '监所', '-1', '0', '0', 'dd', '1', 'dd', 'dd');
-INSERT INTO `organ` VALUES ('58', '1', '全家一店', '1', '1', '0', '陈先生', '1', '上海市松江区', '13981111111');
-INSERT INTO `organ` VALUES ('145', '1', '全家二店', '1', '1', '0', '上海市', '1', '上海市', '13845678901');
-INSERT INTO `organ` VALUES ('151', '1', '恩谊仓储', '1', '1', '0', '', '1', '', '');
-INSERT INTO `organ` VALUES ('152', '1', '德邦IT部', '1', '1', '0', '', '1', '', '');
-INSERT INTO `organ` VALUES ('153', '1', '测试', '1', '1', '0', '', '1', '', '');
-INSERT INTO `organ` VALUES ('154', '1', '郫都区看守所', '1', '1', '0', '', '1', '四川省郫都看守所', '');
-INSERT INTO `organ` VALUES ('155', '1', '亲情', '1', '1', '0', '', '1', '', '');
-INSERT INTO `organ` VALUES ('156', '1', '华图', '1', '1', '0', '', '1', '', '');
-INSERT INTO `organ` VALUES ('157', '1', '卓普', '1', '1', '0', '', '1', '', '');
+INSERT INTO `organ` VALUES ('1', '1', '银川一幼', '-1', '0', '0', '银川一幼', '1', '银川一幼', '银川一幼');
+INSERT INTO `organ` VALUES ('161', '1', '部门一', '1', '1', '0', '测试', '1', '测试', '18756673734');
 
 -- ----------------------------
 -- Table structure for single_page
@@ -2482,7 +2466,7 @@ CREATE TABLE `staff` (
   `company_id` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of staff
@@ -2500,18 +2484,18 @@ CREATE TABLE `sys_param` (
   `company_id` varchar(10) NOT NULL,
   `feature` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`sys_param_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_param
 -- ----------------------------
 INSERT INTO `sys_param` VALUES ('1', 'LocateSever', 'http://47.100.36.235:8086', '定位服务器连接地址', '1', null);
 INSERT INTO `sys_param` VALUES ('2', 'GeoServer', 'http://114.215.83.3:8090', '地图服务器连接地址', '1', null);
-INSERT INTO `sys_param` VALUES ('3', 'placeid', '2', '嘉定看守所', '1', null);
+INSERT INTO `sys_param` VALUES ('3', 'placeid', '43', '嘉定看守所', '1', null);
 INSERT INTO `sys_param` VALUES ('4', '2', '121.4286933,31.1664993', 'mote', '1', 'place');
 INSERT INTO `sys_param` VALUES ('5', '3', '121.407241820159,31.2265797284321', '中北校区', '1', 'place');
 INSERT INTO `sys_param` VALUES ('6', '4', '121.454701250547,31.0275360273072', '闵行校区', '1', 'place');
-INSERT INTO `sys_param` VALUES ('7', 'floorNum', '22', '初始化楼层编号', '1', null);
+INSERT INTO `sys_param` VALUES ('7', 'floorNum', '01', '初始化楼层编号', '1', null);
 INSERT INTO `sys_param` VALUES ('8', '12', '121.236986170667,31.4027152952836', '嘉定看守所', '1', 'place');
 INSERT INTO `sys_param` VALUES ('9', '14', '104.05224243249177,30.63540193188055', '四川建行办公室', '1', 'place');
 INSERT INTO `sys_param` VALUES ('10', 'SOS', '1', '1:打开SOS，0:关闭SOS', '1', null);
@@ -2546,22 +2530,8 @@ INSERT INTO `sys_param` VALUES ('56', '33', '103.82892347,30.80050283', '郫县'
 INSERT INTO `sys_param` VALUES ('57', '32', '116.50198068,39.78514820', '卓普', '1', 'place');
 INSERT INTO `sys_param` VALUES ('58', 'DANGER', '1', '危险区域的开关 0：关 1：开', '1', null);
 INSERT INTO `sys_param` VALUES ('59', 'dangerTime', '60', '危险报警时间间隔', '1', null);
-
--- ----------------------------
--- Table structure for tb_good_img
--- ----------------------------
-DROP TABLE IF EXISTS `tb_good_img`;
-CREATE TABLE `tb_good_img` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `g_id` varchar(10) DEFAULT NULL,
-  `g_img_url` varchar(100) DEFAULT NULL,
-  `user_type` varchar(10) DEFAULT NULL COMMENT '主图:1   副图:2  详情图片:3',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tb_good_img
--- ----------------------------
+INSERT INTO `sys_param` VALUES ('60', '42', '121.52332801,37.51688544', '烟台船舶', '1', null);
+INSERT INTO `sys_param` VALUES ('61', '43', '106.248324451355770,38.508955282559670', '宁夏测试', '1', null);
 
 -- ----------------------------
 -- Table structure for tb_goods
@@ -2580,6 +2550,22 @@ CREATE TABLE `tb_goods` (
 -- Records of tb_goods
 -- ----------------------------
 INSERT INTO `tb_goods` VALUES ('1', '1', '2', '1', '1');
+
+-- ----------------------------
+-- Table structure for tb_good_img
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_good_img`;
+CREATE TABLE `tb_good_img` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `g_id` varchar(10) DEFAULT NULL,
+  `g_img_url` varchar(100) DEFAULT NULL,
+  `user_type` varchar(10) DEFAULT NULL COMMENT '主图:1   副图:2  详情图片:3',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tb_good_img
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_info
@@ -2718,14 +2704,6 @@ CREATE TABLE `wx_bind` (
 -- ----------------------------
 -- Records of wx_bind
 -- ----------------------------
-INSERT INTO `wx_bind` VALUES ('oRt0k0Z5_5VapWBNCaqrSkW6h-Dw', 'ESCD4A1699EA');
-INSERT INTO `wx_bind` VALUES ('oiOhr5TFOtORdNeMRr_J1I3DlH_c', 'EBA9AOF46CFD');
-INSERT INTO `wx_bind` VALUES ('oiOhr5ROn6JuvgSKGrcdrmm2bpSc', 'C442F4523572');
-INSERT INTO `wx_bind` VALUES ('oiOhr5aFHW3LVfy5Wpkqg8Jl0SAg', '126456987');
-INSERT INTO `wx_bind` VALUES ('oiOhr5Z0voTOOQmiewsF_nmlI66w', 'EC95AFFD105A');
-INSERT INTO `wx_bind` VALUES ('oiOhr5YpIcoR4gy6OaNyW4TQy2ik', 'Â·å¿å¨%');
-INSERT INTO `wx_bind` VALUES ('oiOhr5cjtAQdhwylbo4o9pJ21HtI', 'CAC5F2EEBD62');
-INSERT INTO `wx_bind` VALUES ('oiOhr5dopbJz065bX6q34E_ywfI4', '666');
 
 -- ----------------------------
 -- Table structure for wx_health
@@ -2745,7 +2723,7 @@ CREATE TABLE `wx_health` (
   `timestamp` bigint(20) DEFAULT NULL,
   `company_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=502652 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=606911 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wx_health
