@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS "public"."polygon_background";
 CREATE TABLE "public"."polygon_background" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "feature_id" varchar(32) COLLATE "default" NOT NULL,
 "floor_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
@@ -31,6 +32,7 @@ DROP TABLE IF EXISTS "public"."polygon";
 CREATE TABLE "public"."polygon" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "feature_id" varchar(32) COLLATE "default" NOT NULL,
 "floor_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
@@ -45,12 +47,126 @@ ALTER TABLE "public"."polygon" ADD PRIMARY KEY ("fid");
 /* Records */
 
 -- ----------------------------
+-- polygon_style
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."polygon_style";
+CREATE TABLE "public"."polygon_style" (
+"feature_id" varchar(16) COLLATE "default" NOT NULL,
+"fill_color" varchar(32) COLLATE "default",
+"stroke_color" varchar(32) COLLATE "default",
+"stroke_width" float4,
+"zIndex" int2)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."polygon_style" ADD PRIMARY KEY ("feature_id");
+/* Records */
+INSERT INTO "public"."polygon_style" VALUES ('10010101', '207,227,208,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10010102', '207,227,208,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10010103', '255,255,250,1', '0,0,0,1', '0.2', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020101', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020301', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020401', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020511', '255,255,255,1', '128,128,128,0.6', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020601', '200,200,200,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020602', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020603', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020604', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020605', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10020606', '255,255,255,1', '255,255,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10030101', '250,224,204,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030102', '217,237,218,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030103', '195,229,233,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030104', '146,183,188,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030105', '211,211,180,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030106', '252,246,156,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030107', '255,213,219,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030108', '255,143,124,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030109', '199,161,149,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030110', '189,139,142,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030111', '210,190,113,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030112', '174,189,196,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030113', '199,214,225,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030114', '255,188,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030115', '199,214,225,0.4', '255,255,255,0.4', '0.8', '102');
+INSERT INTO "public"."polygon_style" VALUES ('10030116', '199,214,225,0.4', '255,255,255,0.4', '0.8', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030117', '146,183,188,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030118', '245,138,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030119', '205,155,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030120', '205,155,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030121', '205,155,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030122', '210,190,113,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030123', '123,188,205,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030124', '205,155,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030125', '133,178,125,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030126', '133,168,135,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030127', '175,178,235,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030128', '205,165,165,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030130', '205,165,165,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030131', '245,178,155,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030132', '175,178,235,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030133', '252,246,156,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030134', '129,159,165,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030199', '159,129,165,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030201', '139,214,225,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030202', '199,144,205,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030203', '129,174,125,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030204', '139,214,225,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030205', '122,84,125,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030206', '139,174,135,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030207', '99,84,125,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030301', '159,184,125,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030302', '169,194,185,1', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030303', '204,204,204,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030304', '204,204,204,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030305', '204,204,204,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030501', '204,153,255,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030502', '233,242,239,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030503', '255,153,0,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030504', '255,255,204,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030505', '88,94,80,0.4', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030506', '220,220,255,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030507', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030508', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030509', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030510', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030511', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030512', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030513', '233,242,239,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030514', '220,220,255,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030515', '220,220,255,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030516', '220,220,255,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030517', '252,231,212,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030518', '252,231,212,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030519', '252,231,212,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030520', '252,231,212,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030599', '252,231,212,0.5', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030602', '255,178,190,1', '255,255,255,1', '0.8', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030603', '204,204,104,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030604', '180,180,180,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030605', '180,180,180,0.5', '255,255,255,1', '0.8', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030606', '224,224,224,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030607', '104,104,104,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030608', '224,224,224,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030609', '204,204,204,0.8', '255,255,255,1', '1', '104');
+INSERT INTO "public"."polygon_style" VALUES ('10030610', '244,244,204,0.8', '255,255,255,1', '1', '105');
+INSERT INTO "public"."polygon_style" VALUES ('10030611', '244,204,204,1', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030612', '204,204,244,1', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10030613', '204,204,204,0.8', '255,255,255,1', '1', '103');
+INSERT INTO "public"."polygon_style" VALUES ('10050100', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10050200', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10050300', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10050400', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10050500', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('10050600', '0,204,255,0.8', '0,204,255,1', '1', '101');
+INSERT INTO "public"."polygon_style" VALUES ('999999', '200,200,200,1', '128,128,128,0.6', '2', '100');
+
+-- ----------------------------
 -- point
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."point";
 CREATE TABLE "public"."point" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "feature_id" varchar(32) COLLATE "default" NOT NULL,
 "floor_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
@@ -73,6 +189,7 @@ DROP TABLE IF EXISTS "public"."polyline";
 CREATE TABLE "public"."polyline" (
 "fid" varchar COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "feature_id" varchar(32) COLLATE "default" NOT NULL,
 "floor_id" varchar(16) COLLATE "default" NOT NULL,
 "name" text COLLATE "default",
@@ -105,18 +222,15 @@ UPDATE polyline SET y2 =ST_y(ST_PointN(geom, ST_NumPoints(geom)));
 /* Records */
 
 -- ----------------------------
--- region
+-- building
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."region";
-CREATE TABLE "public"."region" (
-"fid" varchar(32) COLLATE "default" NOT NULL,
-"bid" varchar(32) COLLATE "default" NOT NULL,
+DROP TABLE IF EXISTS "public"."building_point";
+CREATE TABLE "public"."building_point" (
 "place_id" varchar(16) COLLATE "default" NOT NULL,
-"floor_id" varchar(32) COLLATE "default",
+"building_id" int NOT NULL,
 "name" text COLLATE "default",
-"geom" "public".geometry(Polygon,4326) NOT NULL)
+"geom" "public".geometry(Point,4326) NOT NULL)
 WITH (OIDS=FALSE);
-ALTER TABLE "public"."region" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
 -- priority
@@ -180,121 +294,140 @@ INSERT INTO "public"."priority" VALUES ('10030609', '1020099');
 INSERT INTO "public"."priority" VALUES ('10030610', '1020099');
 
 -- ----------------------------
--- poi_collection
+-- fence_Criminal
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."poi_collection";
-CREATE TABLE "public"."poi_collection" (
-"id" text COLLATE "default" NOT NULL,
-"poi_id" varchar COLLATE "default",
-"l_id" text COLLATE "default",
-"user_id" text COLLATE "default",
-"place_id" varchar(16) COLLATE "default",
+DROP TABLE IF EXISTS "public"."fence_criminal";
+CREATE TABLE "public"."fence_criminal" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "floor_id" varchar(16) COLLATE "default",
-"geom" "public".geometry(Point,4326))
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"geom" "public".geometry(Polygon,4326)  NOT NULL
+)
 WITH (OIDS=FALSE);
-ALTER TABLE "public"."poi_collection" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."fence_criminal" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
--- electronic_fence
+-- fence_Caller
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."electronic_fence";
-CREATE TABLE "public"."electronic_fence" (
+DROP TABLE IF EXISTS "public"."fence_caller";
+CREATE TABLE "public"."fence_caller" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
-"place_id" varchar(16) COLLATE "default",
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"geom" "public".geometry(Polygon,4326)  NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_caller" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
+-- fence_region
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_region";
+CREATE TABLE "public"."fence_region" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime1" time,
+"etime1" time,
+"stime2" time,
+"etime2" time,
+"stime3" time,
+"etime3" time,
+"organ" int,
+"work" int,
+"mnum" varchar(16) COLLATE "default",
+"geom" "public".geometry(Polygon,4326) NOT NULL)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_region" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
+-- fence_detain
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_detain";
+CREATE TABLE "public"."fence_detain" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"rentention_time" int,
+"geom" "public".geometry(Polygon,4326) NOT NULL)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_detain" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
+-- fence_danger
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_danger";
+CREATE TABLE "public"."fence_danger" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"geom" "public".geometry(Polygon,4326) NOT NULL)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_danger" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
+-- fence_attendance
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_attendance";
+CREATE TABLE "public"."fence_attendance" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
 "floor_id" varchar(32) COLLATE "default",
-"type_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
 "stime" timestamp(6),
 "etime" timestamp(6),
-"geom" "public".geometry(Polygon,4326),
-"fence_id" varchar COLLATE "default")
-WITH (OIDS=FALSE);
-ALTER TABLE "public"."electronic_fence" ADD PRIMARY KEY ("fid");
-
--- ----------------------------
--- camerainfo
--- ----------------------------
-DROP TABLE IF EXISTS "public"."camerainfo";
-CREATE TABLE "public"."camerainfo" (
-"fid" varchar COLLATE "default" NOT NULL,
-"camera_ip" text COLLATE "default",
-"camera_name" text COLLATE "default",
-"class_id" int4,
-"organ" varchar COLLATE "default",
-"nvr_ip" text COLLATE "default",
-"remark" text COLLATE "default",
-"place_id" varchar COLLATE "default",
-"floor_id" varchar COLLATE "default",
-"geom" "public".geometry(Point,4326))
-WITH (OIDS=FALSE);
-ALTER TABLE "public"."camerainfo" ADD PRIMARY KEY ("fid");
-
--- ----------------------------
--- attendance_fence
--- ----------------------------
-DROP TABLE IF EXISTS "public"."attendance_fence";
-CREATE TABLE "public"."attendance_fence" (
-"fid" varchar(32) COLLATE "default" NOT NULL,
-"place_id" varchar(16) COLLATE "default",
-"floor_id" varchar(32) COLLATE "default",
-"name" text COLLATE "default",
-"stime" timestamp(6),
-"etime" timestamp(6),
-"fence_id" varchar COLLATE "default",
-"geom" "public".geometry(Polygon,4326))
-WITH (OIDS=FALSE);
-ALTER TABLE "public"."attendance_fence" ADD PRIMARY KEY ("fid");
-
--- ----------------------------
--- asset_init_locate
--- ----------------------------
-DROP TABLE IF EXISTS "public"."asset_init_locate";
-CREATE TABLE "public"."asset_init_locate" (
-"fid" varchar COLLATE "default" NOT NULL,
-"l_id" text COLLATE "default",
-"asset_name" text COLLATE "default",
-"abbreviation" text COLLATE "default",
-"class_id" int4,
-"grade" int4,
-"fence_num" varchar COLLATE "default",
-"place_id" varchar COLLATE "default",
-"floor_id" varchar COLLATE "default",
-"init_geom" "public".geometry(Point,4326),
-"asset_version" varchar(255) COLLATE "default")
-WITH (OIDS=FALSE);
-ALTER TABLE "public"."asset_init_locate" ADD PRIMARY KEY ("fid");
-
-
--- ----------------------------
--- detain
--- ----------------------------
-DROP TABLE IF EXISTS "public"."detain";
-CREATE TABLE "public"."detain" (
-"fid" varchar(32) COLLATE "default" NOT NULL,
-"bid" varchar(32) COLLATE "default" NOT NULL,
-"place_id" varchar(16) COLLATE "default" NOT NULL,
-"floor_id" varchar(32) COLLATE "default",
-"name" text COLLATE "default",
-"rentention_time" int4,
 "geom" "public".geometry(Polygon,4326) NOT NULL)
 WITH (OIDS=FALSE);
-ALTER TABLE "public"."detain" ADD PRIMARY KEY ("fid");
-
+ALTER TABLE "public"."fence_attendance" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
--- danger
+-- fence_work
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."danger";
-CREATE TABLE "public"."danger" (
+DROP TABLE IF EXISTS "public"."fence_work";
+CREATE TABLE "public"."fence_work" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
-"bid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
-"floor_id" varchar(32) COLLATE "default",
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
-"geom" "public".geometry(Polygon,4326) NOT NULL)
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"geom" "public".geometry(Polygon,4326)  NOT NULL
+)
 WITH (OIDS=FALSE);
-ALTER TABLE "public"."danger" ADD PRIMARY KEY ("fid");
-
+ALTER TABLE "public"."fence_work" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
 -- inspection_point
@@ -302,11 +435,12 @@ ALTER TABLE "public"."danger" ADD PRIMARY KEY ("fid");
 DROP TABLE IF EXISTS "public"."inspection_point";
 CREATE TABLE "public"."inspection_point" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
-"bid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
-"floor_id" varchar(32) COLLATE "default",
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
 "name" text COLLATE "default",
-"scope" int4,
+"scope" int,
 "geom" "public".geometry(Point,4326) NOT NULL
 )
 WITH (OIDS=FALSE);
