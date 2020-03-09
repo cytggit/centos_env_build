@@ -25,5 +25,4 @@ db.asset_collection.ensureIndex({"beginTime":1},{expireAfterSeconds:5184000});
 # 停止服务
 use admin;
 db.shutdownServer();
-exit;
 EOF

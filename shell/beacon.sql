@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 阿里云mysql
-Source Server Version : 50623
-Source Host           : 114.215.83.3:3306
+Source Server         : 10.109.75.149
+Source Server Version : 50633
+Source Host           : 10.109.75.149:3306
 Source Database       : beacon
 
 Target Server Type    : MYSQL
-Target Server Version : 50623
+Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2019-02-18 11:06:15
+Date: 2020-01-09 09:56:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,11 +31,12 @@ CREATE TABLE `bcon` (
   `floor_id` int(10) DEFAULT NULL,
   `place_id` varchar(10) DEFAULT NULL,
   `state` tinyint(4) DEFAULT '1' COMMENT '状态，0表示不正常 1表示正常',
+  `building_id` int(8) DEFAULT '0' COMMENT '建筑物ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `beacon_mac` (`mac`),
   KEY `beacon_place_id` (`place_id`),
   KEY `beacon_floor_id` (`floor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5010101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for fibit
@@ -62,4 +63,4 @@ CREATE TABLE `uwb` (
   `y` double DEFAULT '0' COMMENT '初始点的Y坐标',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `BUIDING_FLOOR_INDEX` (`building_id`,`floor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

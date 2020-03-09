@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # ===============安装软件==============
 # -----app-mysql-----
 cd /mnt/app
@@ -23,8 +22,8 @@ mysql -uroot -pMote12345 << EOF
 use mysql;
 grant all privileges on *.* to 'root'@'%' identified by 'Mote12345';
 flush privileges;
-CREATE DATABASE IF NOT EXISTS bison DEFAULT CHARSET utf8;
-CREATE DATABASE IF NOT EXISTS beacon DEFAULT CHARSET utf8;
+CREATE DATABASE bison DEFAULT CHARSET utf8;
+CREATE DATABASE beacon DEFAULT CHARSET utf8;
 exit;
 EOF
 mysql -uroot -pMote12345 bison < /mnt/shell/bison.sql
