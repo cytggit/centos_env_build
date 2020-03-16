@@ -471,6 +471,40 @@ WITH (OIDS=FALSE);
 ALTER TABLE "public"."fence_fourcolor" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
+-- fence_configpot
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_configpot";
+CREATE TABLE "public"."fence_configpot" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"remarks" text COLLATE "default",
+"icon" varchar(255) COLLATE "default",
+"geom" "public".geometry(Point,4326)  NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_configpot" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
+-- fence_configarea
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_configarea";
+CREATE TABLE "public"."fence_configarea" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"remarks" text COLLATE "default",
+"color" varchar(16) COLLATE "default",
+"geom" "public".geometry(Polygon,4326)  NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_configarea" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
 -- inspection_point
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."inspection_point";
