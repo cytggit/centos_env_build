@@ -362,6 +362,7 @@ ALTER TABLE "public"."fence_region" ADD PRIMARY KEY ("fid");
 DROP TABLE IF EXISTS "public"."fence_contractor";
 CREATE TABLE "public"."fence_contractor" (
 "fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
 "place_id" varchar(16) COLLATE "default" NOT NULL,
 "building_id" int NOT NULL,
 "floor_id" varchar(16) COLLATE "default",
