@@ -455,6 +455,29 @@ WITH (OIDS=FALSE);
 ALTER TABLE "public"."fence_work" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
+-- fence_workarea
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_workarea";
+CREATE TABLE "public"."fence_workarea" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime1" time,
+"etime1" time,
+"stime2" time,
+"etime2" time,
+"stime3" time,
+"etime3" time,
+"is_open" int,
+"geom" "public".geometry(Polygon,4326) NOT NULL)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_workarea" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
 -- fence_fourcolor
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."fence_fourcolor";
