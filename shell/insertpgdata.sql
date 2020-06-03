@@ -332,6 +332,25 @@ WITH (OIDS=FALSE);
 ALTER TABLE "public"."fence_caller" ADD PRIMARY KEY ("fid");
 
 -- ----------------------------
+-- fence_Car
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."fence_car";
+CREATE TABLE "public"."fence_car" (
+"fid" varchar(32) COLLATE "default" NOT NULL,
+"bid" varchar(16) COLLATE "default" NOT NULL,
+"place_id" varchar(16) COLLATE "default" NOT NULL,
+"building_id" int NOT NULL,
+"floor_id" varchar(16) COLLATE "default",
+"name" text COLLATE "default",
+"week_sel" varchar(16) COLLATE "default",
+"stime" time,
+"etime" time,
+"geom" "public".geometry(Polygon,4326)  NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."fence_car" ADD PRIMARY KEY ("fid");
+
+-- ----------------------------
 -- fence_region
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."fence_region";
